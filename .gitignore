@@ -1,0 +1,47 @@
+# Cache y archivos temporales de LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.lot
+*.lof
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.fls
+*.auxlock
+
+# Archivos de respaldo
+*.bak
+*~
+*.swp
+*.swo
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# Archivos temporales de Windows
+ehthumbs.db
+ehthumbs_vista.db
+
+# Archivos de compilación
+*.dvi
+*.ps
+*.eps
+
+# Archivos de caché
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
