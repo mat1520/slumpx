@@ -15,39 +15,38 @@
 \pgfplotsset{compat=1.17}
 \usetikzlibrary{arrows.meta, positioning, shapes.geometric, fit, calc}
 
-% definir colores personalizados - paleta profesional mejorada
-\definecolor{BgPale}{HTML}{F0F4F8}          % Fondo gris azulado muy pálido (60%)
-\definecolor{TextDark}{HTML}{2D3748}        % Texto principal gris carbón oscuro
-\definecolor{BlueCorp}{HTML}{3182CE}        % Encabezados azul corporativo (30%)
-\definecolor{TealAccent}{HTML}{38B2AC}      % Acento verde azulado (10%)
-\definecolor{OrangeAccent}{HTML}{DD6B20}    % Acento naranja quemado alternativo
+% definir colores personalizados cybersecurity theme
+\definecolor{NavyBlue}{HTML}{002347}
+\definecolor{CyanTech}{HTML}{00A8E8}
+\definecolor{AlertRed}{HTML}{C41E3A}
+\definecolor{LightBg}{HTML}{F5F5F5}
 
 % aplicar colores personalizados
 \definecolorstyle{CyberSecurityStyle}{
-    \definecolor{colorOne}{named}{BlueCorp}
-    \definecolor{colorTwo}{named}{TealAccent}
-    \definecolor{colorThree}{named}{OrangeAccent}
+    \definecolor{colorOne}{named}{NavyBlue}
+    \definecolor{colorTwo}{named}{CyanTech}
+    \definecolor{colorThree}{named}{AlertRed}
 }{
     % background
-    \colorlet{backgroundcolor}{BgPale}
-    \colorlet{framecolor}{BlueCorp}
+    \colorlet{backgroundcolor}{LightBg}
+    \colorlet{framecolor}{NavyBlue}
     % title colors
     \colorlet{titlefgcolor}{white}
-    \colorlet{titlebgcolor}{BlueCorp}
+    \colorlet{titlebgcolor}{NavyBlue}
     % block colors
-    \colorlet{blocktitlebgcolor}{BlueCorp}
+    \colorlet{blocktitlebgcolor}{CyanTech}
     \colorlet{blocktitlefgcolor}{white}
     \colorlet{blockbodybgcolor}{white}
-    \colorlet{blockbodyfgcolor}{TextDark}
+    \colorlet{blockbodyfgcolor}{black}
     % innerblock colors
-    \colorlet{innerblocktitlebgcolor}{TealAccent!15}
-    \colorlet{innerblocktitlefgcolor}{TextDark}
+    \colorlet{innerblocktitlebgcolor}{NavyBlue!20}
+    \colorlet{innerblocktitlefgcolor}{black}
     \colorlet{innerblockbodybgcolor}{white}
-    \colorlet{innerblockbodyfgcolor}{TextDark}
+    \colorlet{innerblockbodyfgcolor}{black}
     % note colors
-    \colorlet{notefgcolor}{TextDark}
-    \colorlet{notebgcolor}{TealAccent!10}
-    \colorlet{noteframecolor}{TealAccent}
+    \colorlet{notefgcolor}{black}
+    \colorlet{notebgcolor}{CyanTech!20}
+    \colorlet{noteframecolor}{CyanTech}
 }
 
 % aplicar tema
@@ -61,11 +60,11 @@
 \author{Ariel Matias Melo Pazmiño}
 \institute{Universidad Internacional del Ecuador - Facultad de Ciencias Técnicas}
 
-% logos con fondo blanco para mejor visibilidad
+% logos
 \titlegraphic{
-    \colorbox{white}{\includegraphics[width=9cm]{university_logo.png}}
-    \hspace{12cm}
-    \colorbox{white}{\includegraphics[width=9cm]{faculty_logo.png}}
+    \includegraphics[width=8cm]{university_logo.png}
+    \hspace{10cm}
+    \includegraphics[width=8cm]{faculty_logo.png}
 }
 
 \begin{document}
@@ -79,13 +78,10 @@
 \column{0.33}
 
 \block{Abstract}{
-The Internet of Things has fundamentally transformed cybersecurity, introducing billions of connected devices with minimal security measures. This research presents a comprehensive technical analysis of the SlumX botnet (Hitori variant) through static code analysis of the open-source repository [1][2].
+The Internet of Things has fundamentally transformed cybersecurity, introducing billions of connected devices with minimal security measures. This research presents a comprehensive technical analysis of the SlumX botnet (Hitori variant) through static code analysis of the open-source repository.
 
-\vspace{1em}
-\textbf{Key Focus:} Understanding the evolution from simple credential attacks to sophisticated multi-architecture IoT malware with advanced evasion capabilities [3][4].
-
-\vspace{1em}
-\textcolor{OrangeAccent}{\textbf{Impact:}} With over 26 billion IoT devices projected by 2030 [5], understanding botnet evolution is critical for developing effective defensive strategies.
+\vspace{0.5em}
+\textbf{Key Focus:} Understanding the evolution from simple credential attacks to sophisticated multi-architecture IoT malware with advanced evasion capabilities.
 }
 
 \block{Research Objectives}{
@@ -94,21 +90,16 @@ The Internet of Things has fundamentally transformed cybersecurity, introducing 
     \item Conduct in-depth technical analysis of Hitori (SlumX) variant to understand modern IoT botnet threats
 \end{itemize}
 
-\vspace{1em}
+\vspace{0.5em}
 \textbf{Specific Objectives:}
 \begin{itemize}
     \item Analyze core architecture and operational framework
     \item Examine Command \& Control infrastructure design
-    \item Identify and categorize DDoS attack vectors [6][7]
+    \item Identify and categorize DDoS attack vectors
     \item Evaluate multi-architecture support mechanisms
-    \item Document evasion and anti-analysis techniques [8]
-    \item Assess IoT device scanning and exploitation capabilities [9][10]
+    \item Document evasion and anti-analysis techniques
+    \item Assess IoT device scanning and exploitation capabilities
 \end{itemize}
-
-\vspace{1em}
-\colorbox{TealAccent!15}{\parbox{0.95\linewidth}{\small
-\textbf{Methodology:} Static code analysis of 15,000+ lines of C source code from GitHub repository, examining binary compilation artifacts, network protocol implementations, and cross-architecture support mechanisms.
-}}
 }
 
 \block{Methodology}{
@@ -191,149 +182,97 @@ Analysis of the \texttt{mat1520/slumpx} repository using:
     \draw [arrow] (payload) -- (execute);
     \draw [arrow] (execute) -- (connect);
 \end{tikzpicture}
-\end{center}
-
-\vspace{0.5em}
-{\small\textcolor{TextDark}{Automated infection pipeline demonstrates evolution from Mirai's opportunistic scanning to targeted exploitation strategies [13].}}
 }
 
 \block{Multi-Architecture Support}{
-\vspace{0.5em}
 \begin{center}
-\small
-\begin{tabular}{lp{10cm}}
+\begin{tabular}{ll}
 \toprule
 \textbf{Architecture} & \textbf{Target Devices} \\
 \midrule
-\textcolor{BlueCorp}{\textbf{MIPS}} & Routers, Network Equipment (D-Link, Netgear, TP-Link) \\
-\textcolor{BlueCorp}{\textbf{ARM}} & IoT Devices, IP Cameras, DVRs (Dahua, Hikvision) \\
-\textcolor{BlueCorp}{\textbf{x86/x64}} & PC-based IoT Systems, Edge Computing Devices \\
-\textcolor{TealAccent}{\textbf{PowerPC}} & Legacy Embedded Systems, Network Appliances \\
-\textcolor{TealAccent}{\textbf{SPARC}} & Enterprise IoT, Industrial Systems \\
-\textcolor{TealAccent}{\textbf{M68k}} & Industrial Controllers, Legacy Automation \\
-\textcolor{TealAccent}{\textbf{SH4}} & Multimedia Devices, Set-top Boxes \\
+MIPS & Routers, Network Equipment \\
+ARM & IoT Devices, Cameras \\
+x86 & PC-based IoT Systems \\
+PowerPC & Legacy Embedded Systems \\
+SPARC & Enterprise IoT \\
+M68k & Industrial Controllers \\
+SH4 & Multimedia Devices \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\vspace{1em}
-\colorbox{OrangeAccent!15}{\parbox{0.95\linewidth}{\small
-\textbf{12 supported architectures} dramatically expanding attack surface across diverse IoT ecosystem, enabling cross-platform botnet operations [14][15].
-}}
+\textbf{12 supported architectures} expanding attack surface across diverse IoT ecosystem.
 }
 
 % ========== COLUMNA 3 ==========
 \column{0.33}
 
 \block{Attack Vector Complexity}{
-\vspace{0.5em}
-\begin{center}
-\begin{tikzpicture}[scale=0.65, transform shape]
+\begin{tikzpicture}[scale=0.6, transform shape]
 \begin{axis}[
-    xlabel={\textbf{Attack Type}},
-    ylabel={\textbf{Lines of Code (LOC)}},
+    xlabel={Attack Type},
+    ylabel={Lines of Code},
     symbolic x coords={UDP,TCP,HTTP,HOLD,JUNK,CNC,STD},
     xtick=data,
     ybar,
-    bar width=22pt,
+    bar width=20pt,
     grid=major,
-    ymajorgrids=true,
-    width=16cm,
-    height=11cm,
-    x tick label style={rotate=45,anchor=east,font=\small\bfseries},
-    y tick label style={font=\small},
-    ylabel style={font=\small\bfseries},
-    xlabel style={font=\small\bfseries},
-    legend pos=north west,
-    ymin=0,
-    enlarge x limits=0.15
+    width=15cm,
+    height=10cm,
+    x tick label style={rotate=45,anchor=east}
 ]
-\addplot[fill=TealAccent,draw=BlueCorp,thick] coordinates {(UDP,73) (TCP,89) (HTTP,95) (HOLD,67) (JUNK,42) (CNC,51) (STD,35)};
-\legend{Implementation Complexity}
+\addplot coordinates {(UDP,73) (TCP,89) (HTTP,95) (HOLD,67) (JUNK,42) (CNC,51) (STD,35)};
 \end{axis}
 \end{tikzpicture}
-\end{center}
 
-\vspace{0.5em}
-{\small\textcolor{TextDark}{HTTP-based attacks show highest complexity (95 LOC) due to request crafting and user-agent randomization requirements [16].}}
+HTTP-based attacks show highest complexity (95 LOC) due to request crafting and user-agent randomization requirements.
 }
 
-\block{Vulnerability Assessment Matrix}{
-\vspace{0.5em}
-\begin{center}
+\block{Vulnerability Assessment}{
 \begin{tikzpicture}[
-    scale=0.65, transform shape,
-    box/.style={rectangle, draw=BlueCorp, very thick, minimum width=5.5cm, minimum height=3.2cm, align=center, font=\small\bfseries, outer sep=0pt, rounded corners=2pt}
+    scale=0.6, transform shape,
+    box/.style={rectangle, draw=black, thick, minimum width=5cm, minimum height=3cm, align=center, font=\small\bfseries, outer sep=0pt}
 ]
-    \node[box, fill=OrangeAccent!60] (topleft) at (0,0) {Hardcoded C\&C\\Address\\\small (Single Point Failure)};
-    \node[box, fill=OrangeAccent!40, right=0cm of topleft] (topright) {Plain Text\\Communication\\\small (Traffic Analysis)};
-    \node[box, fill=TealAccent!40, below=0cm of topleft] (bottomleft) {Fixed Port Usage\\\small (Network Filtering)};
-    \node[box, fill=TealAccent!25, right=0cm of bottomleft] (bottomright) {Predictable Binary\\Names\\\small (Signature Detection)};
+    \node[box, fill=red!50] (topleft) at (0,0) {Hardcoded C\&C Address (Single Point Failure)};
+    \node[box, fill=yellow!50, right=0cm of topleft] (topright) {Plain Text Communication (Traffic Analysis)};
+    \node[box, fill=yellow!50, below=0cm of topleft] (bottomleft) {Fixed Port Usage (Network Filtering)};
+    \node[box, fill=green!50, right=0cm of bottomleft] (bottomright) {Predictable Binary Names (Signature Detection)};
     
-    % leyenda mejorada
-    \node[rectangle, draw=BlueCorp, very thick, minimum size=0.7cm, fill=OrangeAccent!60, below=1.2cm of bottomleft, xshift=1cm] (l1) {};
-    \node[right=0.3cm of l1, font=\small\bfseries] (t1) {High Risk};
-    \node[rectangle, draw=BlueCorp, very thick, minimum size=0.7cm, fill=OrangeAccent!40, right=1.5cm of t1] (l2) {};
-    \node[right=0.3cm of l2, font=\small\bfseries] (t2) {Medium Risk};
-    \node[rectangle, draw=BlueCorp, very thick, minimum size=0.7cm, fill=TealAccent!25, right=1.5cm of t2] (l3) {};
-    \node[right=0.3cm of l3, font=\small\bfseries] (t3) {Low Risk};
+    % leyenda
+    \node[rectangle, draw=black, thick, minimum size=0.6cm, fill=red!50, below=1cm of bottomleft, xshift=0.5cm] (l1) {};
+    \node[right=0.2cm of l1, font=\small] (t1) {High Risk};
+    \node[rectangle, draw=black, thick, minimum size=0.6cm, fill=yellow!50, right=1cm of t1] (l2) {};
+    \node[right=0.2cm of l2, font=\small] (t2) {Medium Risk};
+    \node[rectangle, draw=black, thick, minimum size=0.6cm, fill=green!50, right=1cm of t2] (l3) {};
+    \node[right=0.2cm of l3, font=\small] (t3) {Low Risk};
 \end{tikzpicture}
-\end{center}
-
-\vspace{0.5em}
-{\small\textcolor{TextDark}{Critical vulnerabilities identified through static analysis, highlighting need for improved C\&C resilience and encrypted communications [17].}}
 }
 
-\block{Key Findings \& Research Contributions}{
-\vspace{0.5em}
+\block{Key Findings}{
 \begin{itemize}
-    \item \textcolor{BlueCorp}{\textbf{Multi-architecture support:}} 12 architectures (MIPS, ARM, x86, PowerPC, SPARC, M68k, SH4) dramatically expanding attack surface across diverse IoT ecosystems [14][15]
-    
-    \item \textcolor{BlueCorp}{\textbf{Advanced evasion techniques:}} Process masquerading, anti-debugging mechanisms, IoT-specific hiding techniques demonstrating sophistication beyond traditional malware [8]
-    
-    \item \textcolor{TealAccent}{\textbf{Targeted exploitation:}} Vendor-specific exploits (D-Link, Netgear, Hikvision) and protocol-based attacks showing evolution from opportunistic to targeted strategies [9][13]
-    
-    \item \textcolor{OrangeAccent}{\textbf{Implementation vulnerabilities:}} Buffer overflow risks, hardcoded credentials, predictable attack patterns creating defensive opportunities [17]
+    \item \textbf{Multi-architecture support:} 12 architectures (MIPS, ARM, x86, embedded systems) dramatically expanding attack surface
+    \item \textbf{Advanced evasion:} Process masquerading, anti-analysis features, IoT-specific hiding techniques
+    \item \textbf{Targeted exploitation:} Vendor-specific exploits and protocol-based attacks showing evolution from opportunistic to targeted attacks
+    \item \textbf{Implementation flaws:} Buffer overflow vulnerabilities, hardcoded credentials, predictable attack patterns
 \end{itemize}
-
-\vspace{1em}
-\colorbox{TealAccent!15}{\parbox{0.95\linewidth}{\small
-\textbf{Novel Contribution:} First comprehensive static analysis of SlumX (Hitori) variant, documenting architectural evolution from Mirai lineage and identifying critical security gaps for IoT defense strategies.
-}}
 }
 
-\block{Conclusions \& Future Research}{
+\block{Conclusions}{
+This analysis reveals significant advancement in IoT malware sophistication, particularly in multi-architecture targeting and evasion capabilities. The findings demonstrate evolution from opportunistic to targeted IoT attacks.
+
 \vspace{0.5em}
-This analysis reveals significant advancement in IoT malware sophistication, particularly in multi-architecture targeting and evasion capabilities. The findings demonstrate evolution from opportunistic to targeted IoT attacks, with implications for both offensive and defensive cybersecurity strategies [18].
-
-\vspace{1em}
-\colorbox{BlueCorp!10}{\parbox{0.95\linewidth}{\small
-\textbf{Defensive Implications:}
+\textbf{Future Work:}
 \begin{itemize}
-    \item Network-level detection must account for multi-protocol attack vectors
-    \item Device hardening requires architecture-specific security measures
-    \item C\&C disruption strategies should target infrastructure weaknesses
-\end{itemize}
-}}
-
-\vspace{1em}
-\textcolor{BlueCorp}{\textbf{Future Research Directions:}}
-\begin{itemize}
-    \item Dynamic analysis frameworks for multi-architecture IoT malware [19]
-    \item Machine learning-based detection for resource-constrained devices [20]
-    \item Comparative analysis of botnet evolution patterns (Mirai → Bashlite → SlumX)
-    \item Honeypot deployment strategies for early threat detection [10]
+    \item Dynamic analysis frameworks for multi-architecture IoT malware
+    \item Specialized detection technologies for resource-constrained devices
+    \item Comparative analysis of botnet evolution patterns
 \end{itemize}
 
-\vspace{1.5em}
+\vspace{1em}
 \begin{center}
-\colorbox{white}{\parbox{8cm}{\centering
-\textcolor{BlueCorp}{\textbf{\Large Access Full Research Paper}}\\
+\textbf{Research Paper QR Code}\\
 \vspace{0.5em}
-\includegraphics[width=7cm]{QR_research.png}\\
-\vspace{0.3em}
-{\small\textcolor{TextDark}{Scan for complete technical analysis}}
-}}
+\includegraphics[width=6cm]{QR_research.png}
 \end{center}
 }
 
