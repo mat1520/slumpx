@@ -15,56 +15,61 @@
 \pgfplotsset{compat=1.17}
 \usetikzlibrary{arrows.meta, positioning, shapes.geometric, fit, calc}
 
-% definir colores personalizados cybersecurity theme
-\definecolor{NavyBlue}{HTML}{002347}
-\definecolor{CyanTech}{HTML}{00A8E8}
-\definecolor{AlertRed}{HTML}{C41E3A}
-\definecolor{LightBg}{HTML}{F5F5F5}
+% definir colores profesionales
+\definecolor{GrayBlueBackground}{HTML}{F0F4F8}
+\definecolor{DarkCharcoal}{HTML}{2D3748}
+\definecolor{CorporateBlue}{HTML}{3182CE}
+\definecolor{TealAccent}{HTML}{38B2AC}
+\definecolor{BurntOrange}{HTML}{DD6B20}
+\definecolor{LightGray}{HTML}{EDF2F7}
+\definecolor{HighRisk}{HTML}{F56565}
+\definecolor{MediumRisk}{HTML}{ED8936}
+\definecolor{LowRisk}{HTML}{48BB78}
 
-% aplicar colores personalizados
-\definecolorstyle{CyberSecurityStyle}{
-    \definecolor{colorOne}{named}{NavyBlue}
-    \definecolor{colorTwo}{named}{CyanTech}
-    \definecolor{colorThree}{named}{AlertRed}
+% aplicar colores profesionales
+\definecolorstyle{ProfessionalStyle}{
+    \definecolor{colorOne}{named}{CorporateBlue}
+    \definecolor{colorTwo}{named}{TealAccent}
+    \definecolor{colorThree}{named}{BurntOrange}
 }{
     % background
-    \colorlet{backgroundcolor}{LightBg}
-    \colorlet{framecolor}{NavyBlue}
+    \colorlet{backgroundcolor}{GrayBlueBackground}
+    \colorlet{framecolor}{CorporateBlue}
     % title colors
-    \colorlet{titlefgcolor}{white}
-    \colorlet{titlebgcolor}{NavyBlue}
+    \colorlet{titlefgcolor}{DarkCharcoal}
+    \colorlet{titlebgcolor}{GrayBlueBackground}
     % block colors
-    \colorlet{blocktitlebgcolor}{CyanTech}
+    \colorlet{blocktitlebgcolor}{CorporateBlue}
     \colorlet{blocktitlefgcolor}{white}
     \colorlet{blockbodybgcolor}{white}
-    \colorlet{blockbodyfgcolor}{black}
+    \colorlet{blockbodyfgcolor}{DarkCharcoal}
     % innerblock colors
-    \colorlet{innerblocktitlebgcolor}{NavyBlue!20}
-    \colorlet{innerblocktitlefgcolor}{black}
-    \colorlet{innerblockbodybgcolor}{white}
-    \colorlet{innerblockbodyfgcolor}{black}
+    \colorlet{innerblocktitlebgcolor}{TealAccent!15}
+    \colorlet{innerblocktitlefgcolor}{DarkCharcoal}
+    \colorlet{innerblockbodybgcolor}{LightGray}
+    \colorlet{innerblockbodyfgcolor}{DarkCharcoal}
     % note colors
-    \colorlet{notefgcolor}{black}
-    \colorlet{notebgcolor}{CyanTech!20}
-    \colorlet{noteframecolor}{CyanTech}
+    \colorlet{notefgcolor}{DarkCharcoal}
+    \colorlet{notebgcolor}{BurntOrange!15}
+    \colorlet{noteframecolor}{BurntOrange}
 }
 
 % aplicar tema
-\usecolorstyle{CyberSecurityStyle}
+\usecolorstyle{ProfessionalStyle}
 \usebackgroundstyle{Default}
 \usetitlestyle{Default}
 \useblockstyle{Default}
 
 % titulo y autores
-\title{\parbox{0.9\linewidth}{\centering Analysis of IoT Botnet Structure and Behavior:\\A Study Based on the Hitori (SlumX) Variant}}
-\author{Ariel Matias Melo Pazmiño}
-\institute{Universidad Internacional del Ecuador - Facultad de Ciencias Técnicas}
+\title{\parbox{0.95\linewidth}{\centering \Large \textbf{Analysis of IoT Botnet Structure and Behavior: A Study Based on the Hitori (SlumX) Variant}}}
+\author{\Large Ariel Matias Melo Pazmiño \quad | \quad Universidad Internacional del Ecuador - Facultad de Ciencias Técnicas}
+\institute{}
 
-% logos
+% logos con mejor posicionamiento
 \titlegraphic{
-    \includegraphics[width=8cm]{university_logo.png}
-    \hspace{10cm}
-    \includegraphics[width=8cm]{faculty_logo.png}
+    \includegraphics[width=6cm]{university_logo.png}
+    \hspace{11cm}
+    \includegraphics[height=2.5cm]{faculty_logo.png}
 }
 
 \begin{document}
@@ -80,18 +85,23 @@
 \block{Abstract}{
 The Internet of Things has fundamentally transformed cybersecurity, introducing billions of connected devices with minimal security measures. This research presents a comprehensive technical analysis of the SlumX botnet (Hitori variant) through static code analysis of the open-source repository.
 
-\vspace{0.5em}
+\vspace{0.3em}
+\noindent\colorbox{TealAccent!20}{\parbox{0.95\linewidth}{
 \textbf{Key Focus:} Understanding the evolution from simple credential attacks to sophisticated multi-architecture IoT malware with advanced evasion capabilities.
+}}
+\vspace{0.3em}
+
+\textit{\small IEEE References: [1] IoT Security Analysis, [2] Botnet Detection Methods}
 }
 
 \block{Research Objectives}{
-\textbf{General Objective:}
+\textbf{\large General Objective}
 \begin{itemize}
     \item Conduct in-depth technical analysis of Hitori (SlumX) variant to understand modern IoT botnet threats
 \end{itemize}
 
-\vspace{0.5em}
-\textbf{Specific Objectives:}
+\vspace{0.3em}
+\textbf{\large Specific Objectives}
 \begin{itemize}
     \item Analyze core architecture and operational framework
     \item Examine Command \& Control infrastructure design
@@ -100,10 +110,13 @@ The Internet of Things has fundamentally transformed cybersecurity, introducing 
     \item Document evasion and anti-analysis techniques
     \item Assess IoT device scanning and exploitation capabilities
 \end{itemize}
+
+\vspace{0.2em}
+\textit{\small Ref. [3] Botnet Architecture Analysis}
 }
 
 \block{Methodology}{
-\textbf{Static Code Analysis Framework}
+\textbf{\large Static Code Analysis Framework}
 
 Analysis of the \texttt{mat1520/slumpx} repository using:
 
@@ -114,13 +127,13 @@ Analysis of the \texttt{mat1520/slumpx} repository using:
     \item \textbf{Architecture Analysis:} Cross-platform compilation and targeting strategies
 \end{itemize}
 
-\vspace{0.5em}
-\textbf{Limitations:}
-\begin{itemize}
-    \item Static analysis cannot capture all runtime behaviors
-    \item No testing on actual IoT devices
-    \item Temporal snapshot of evolving malware
-\end{itemize}
+\vspace{0.2em}
+\colorbox{BurntOrange!15}{\parbox{0.95\linewidth}{
+\textbf{Limitations:} Static analysis cannot capture all runtime behaviors; no testing on actual IoT devices; temporal snapshot of evolving malware.
+}}
+
+\vspace{0.2em}
+\textit{\small Ref. [4] Static Analysis Methods, [5] Malware Reverse Engineering}
 }
 
 % ========== COLUMNA 2 ==========
