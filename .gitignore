@@ -45,3 +45,8 @@ __pycache__/
 *.pyo
 *.pyd
 .Python
+
+# Archivos de salida
+*.log
+*.out
+*.aux
