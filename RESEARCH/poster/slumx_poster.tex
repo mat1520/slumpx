@@ -1,7 +1,5 @@
-% poster cientifico slumx botnet analysis
 \documentclass[25pt, a0paper, portrait]{tikzposter}
 
-% paquetes necesarios
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{lmodern}
@@ -18,50 +16,38 @@
 \pgfplotsset{compat=1.17}
 \usetikzlibrary{arrows.meta, positioning, shapes.geometric, fit, calc, shadows, backgrounds}
 
-% ==============================================================================
-% DEFINICIÓN DE COLORES (DARK MODE / NEON ACCENTS)
-% ==============================================================================
-\definecolor{DarkBackground}{HTML}{0B1120} % Deep Navy/Black
-\definecolor{BlockBackground}{HTML}{1E293B} % Slate 800
-\definecolor{TextWhite}{HTML}{F1F5F9}       % Slate 100
-\definecolor{AccentCyan}{HTML}{22D3EE}      % Cyan 400
-\definecolor{AccentBlue}{HTML}{60A5FA}      % Blue 400
-\definecolor{AccentPurple}{HTML}{C084FC}    % Purple 400
-\definecolor{AccentGreen}{HTML}{4ADE80}     % Green 400
-\definecolor{AccentRed}{HTML}{F87171}       % Red 400
-\definecolor{AccentOrange}{HTML}{FB923C}    % Orange 400
+\definecolor{DarkBackground}{HTML}{0B1120}
+\definecolor{BlockBackground}{HTML}{1E293B}
+\definecolor{TextWhite}{HTML}{F1F5F9}
+\definecolor{AccentCyan}{HTML}{22D3EE}
+\definecolor{AccentBlue}{HTML}{60A5FA}
+\definecolor{AccentPurple}{HTML}{C084FC}
+\definecolor{AccentGreen}{HTML}{4ADE80}
+\definecolor{AccentRed}{HTML}{F87171}
+\definecolor{AccentOrange}{HTML}{FB923C}
 
-% ==============================================================================
-% ESTILO DEL POSTER
-% ==============================================================================
 \definecolorstyle{DarkNeonStyle}{
     \definecolor{colorOne}{named}{AccentCyan}
     \definecolor{colorTwo}{named}{AccentBlue}
     \definecolor{colorThree}{named}{AccentPurple}
 }{
-    % Background
     \colorlet{backgroundcolor}{DarkBackground}
     \colorlet{framecolor}{DarkBackground}
-    % Title
     \colorlet{titlefgcolor}{TextWhite}
     \colorlet{titlebgcolor}{DarkBackground}
-    % Block
     \colorlet{blocktitlebgcolor}{BlockBackground}
     \colorlet{blocktitlefgcolor}{AccentCyan}
     \colorlet{blockbodybgcolor}{BlockBackground}
     \colorlet{blockbodyfgcolor}{TextWhite}
-    % Inner Block
     \colorlet{innerblocktitlebgcolor}{AccentBlue!20}
     \colorlet{innerblocktitlefgcolor}{TextWhite}
     \colorlet{innerblockbodybgcolor}{DarkBackground}
     \colorlet{innerblockbodyfgcolor}{TextWhite}
-    % Note
     \colorlet{notefgcolor}{DarkBackground}
     \colorlet{notebgcolor}{AccentCyan}
     \colorlet{noteframecolor}{AccentCyan}
 }
 
-% Custom Title Style
 \definetitlestyle{SimpleTitle}{
     width=\paperwidth, roundedcorners=0, linewidth=0pt, innersep=2cm,
     titletotopverticalspace=0mm, titletoblockverticalspace=20mm
@@ -69,7 +55,6 @@
     \draw[draw=none, fill=titlebgcolor] (\titleposleft,\titleposbottom) rectangle (\titleposright,\titlepostop);
 }
 
-% Custom Block Style (Clean Dark Card with Glow/Shadow)
 \defineblockstyle{DarkCard}{
     titlewidthscale=1, bodywidthscale=1, titleleft,
     titleoffsetx=0pt, titleoffsety=0pt, bodyoffsetx=0pt, bodyoffsety=0pt,
@@ -79,7 +64,6 @@
     \begin{scope}[drop shadow={fill=black, shadow xshift=3pt, shadow yshift=-3pt, opacity=0.6}]
         \fill[color=blockbodybgcolor, rounded corners=10pt] (blockbody.south west) rectangle (blockbody.north east);
         \ifBlockHasTitle
-            % Optional: Add a thin accent line under the title
             \draw[color=AccentCyan, line width=2pt] ([yshift=-2pt]blocktitle.south west) -- ([yshift=-2pt]blocktitle.south east);
         \fi
     \end{scope}
@@ -89,27 +73,24 @@
 \usetitlestyle{SimpleTitle}
 \useblockstyle{DarkCard}
 
-% ==============================================================================
-% TÍTULO
-% ==============================================================================
 \makeatletter
 \settitle{
-    \parbox{\linewidth}{
+    \parbox{0.9\paperwidth}{
         \centering
         \begin{minipage}{0.12\linewidth}
             \centering
             \includegraphics[width=\linewidth, height=6cm, keepaspectratio]{university_logo.png}
-        \end{minipage}%
-        \begin{minipage}{0.74\linewidth}
+        \end{minipage}
+        \begin{minipage}{0.76\linewidth}
             \centering
             \color{titlefgcolor}
             {\bfseries \LARGE \@title}\\[1em]
             {\Large \@author}\\[0.5em]
             {\large \@institute}
-        \end{minipage}%
+        \end{minipage}
         \begin{minipage}{0.12\linewidth}
             \centering
-            ~ % Invisible character to maintain symmetry
+            ~
         \end{minipage}
     }
 }
@@ -119,18 +100,12 @@
 \author{Ariel Matias Melo Pazmiño}
 \institute{Universidad Internacional del Ecuador - Facultad de Ciencias Técnicas}
 
-% ==============================================================================
-% DOCUMENTO
-% ==============================================================================
 \begin{document}
 
 \maketitle
 
 \begin{columns}
 
-    % ==========================================================================
-    % COLUMNA 1
-    % ==========================================================================
     \column{0.33}
 
     \block{Abstract}{
@@ -229,9 +204,6 @@
         \end{minipage}
     }
 
-    % ==========================================================================
-    % COLUMNA 2
-    % ==========================================================================
     \column{0.33}
 
     \block{Infection Process Flow}{
@@ -293,7 +265,7 @@
             \textbf{High Risk:} Hardcoded IP addresses allow defenders to sinkhole the entire botnet.
             \textbf{Medium Risk:} Lack of encryption enables traffic inspection and signature generation.
         \end{minipage}
-        \vspace{2.5cm} % Padding for alignment
+        \vspace{2.5cm}
     }
 
     \block{Multi-Architecture Support}{
@@ -321,9 +293,6 @@
         \end{minipage}
     }
 
-    % ==========================================================================
-    % COLUMNA 3
-    % ==========================================================================
     \column{0.33}
 
     \block{Attack Vector Complexity}{
@@ -397,7 +366,7 @@
         \vspace{0.5em}
         \includegraphics[width=5cm]{QR_research.png}
         \end{center}
-        \vspace{0.5cm} % Minor padding
+        \vspace{0.5cm}
     }
 
 \end{columns}
