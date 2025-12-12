@@ -106,14 +106,15 @@
 % Key Discovery Headline - Mensaje Principal Memorable
 \block{}{
     \centering
-    \colorbox{AccentCyan!20}{\parbox{0.95\textwidth}{\centering
-    \vspace{0.5em}
-    {\Huge\bfseries\color{AccentCyan} SlumX: 12 Architectures $\bullet$ 7 Attack Vectors $\bullet$ 1 Sophisticated Threat}
-    \vspace{0.3em}
-    
-    {\Large\color{TextWhite} The Evolution from Simple Mirai Variants to Advanced Multi-Platform IoT Weaponry}
-    \vspace{0.5em}
-    }}
+    \tikz[baseline=(X.base)]{
+        \node[fill=BlockBackground, draw=AccentCyan, line width=3pt, rounded corners=10pt, inner sep=15pt] (X) {
+            \parbox{0.9\textwidth}{\centering
+            {\Huge\bfseries\color{AccentCyan} SlumX: 12 Architectures $\bullet$ 7 Attack Vectors $\bullet$ 1 Sophisticated Threat}
+            \\[0.3em]
+            {\Large\color{TextWhite} The Evolution from Simple Mirai Variants to Advanced Multi-Platform IoT Weaponry}
+            }
+        };
+    }
 }
 
 \begin{columns}
@@ -130,7 +131,7 @@
         \end{itemize}
         
         \vspace{0.5em}
-        \colorbox{AccentBlue!20}{\parbox{0.96\linewidth}{\normalsize\color{TextWhite}
+        \colorbox{BlockBackground}{\parbox{0.96\linewidth}{\normalsize\color{AccentCyan}
         \textbf{Contribution:} Documentation of modern IoT botnet behaviors and mitigation strategies [5].
         }}
     }
@@ -175,16 +176,17 @@
 
     \block{Threat Model}{
         \centering
-        \begin{tikzpicture}[
-            stat/.style={rectangle, draw=none, fill=AccentBlue!30, text=TextWhite, minimum width=4cm, minimum height=1.8cm, align=center, rounded corners=5pt, font=\large\bfseries}
-        ]
-            \node[stat] (a1) at (0,0) {\Huge 12+\\\normalsize Architectures};
-            \node[stat] (a2) at (5.5,0) {\Huge 7+\\\normalsize Attack Vectors};
-            \node[stat] (a3) at (11,0) {\Huge 1Tbps+\\\normalsize DDoS Potential};
-        \end{tikzpicture}
+        \large
+        \begin{tabular}{c l}
+            {\Huge\bfseries\color{AccentCyan} 12+} & {\color{TextWhite} Supported Architectures} \\[0.8em]
+            {\Huge\bfseries\color{AccentPurple} 7+} & {\color{TextWhite} Attack Vectors} \\[0.8em]
+            {\Huge\bfseries\color{AccentOrange} 1Tbps+} & {\color{TextWhite} DDoS Potential} \\
+        \end{tabular}
         
-        \vspace{0.8em}
-        \small\textbf{\color{AccentOrange}Vulnerabilities Found:} Buffer overflows (\texttt{sprintf}), no thread sync, hardcoded credentials.
+        \vspace{1em}
+        \colorbox{BlockBackground}{\parbox{0.95\linewidth}{\small\color{AccentOrange}
+        \textbf{Vulnerabilities:} Buffer overflows, no thread sync, hardcoded credentials.
+        }}
     }
 
     \block{System Architecture}{
