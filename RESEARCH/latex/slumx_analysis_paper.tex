@@ -21,6 +21,7 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{tabularx}
 \usepackage{longtable}
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -147,25 +148,107 @@ La investigación conlleva un análisis técnico, en base a la variante Hitori d
 
 \section{Background}
 
+
 The Internet of Things (IoT) has changed the cyber security domain, allowing for the connection of billions of devices to each other with minimal security protections. As such, this new technology has vastly expanded the attack surface for attackers and allowed for the creation of large botnets. The Mirai botnet was first detected in 2016 and represented a change in the threat landscape because it demonstrated the destructive capability of IoT devices being used in a malicious manner.\cite{antonakakis2017understanding}.
 
+% --- IoT Growth Bar Chart (English, IEEE style) ---
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            ybar,
+            width=12cm,
+            height=8cm,
+            xlabel={Year},
+            ylabel={Connected IoT Devices (Billions)},
+            symbolic x coords={2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025},
+            xtick=data,
+            nodes near coords,
+            nodes near coords align={vertical},
+            ymin=0, ymax=35,
+            grid=major,
+            bar width=0.6cm,
+            x tick label style={rotate=45, anchor=east},
+            ylabel style={yshift=10pt},
+            title={Global IoT Device Growth (2016--2025)}
+        ]
+            % Data from industry reports (IoT Analytics, DemandSage)
+            \addplot[fill=blue!60, draw=black] coordinates {
+                (2016, 4.6)
+                (2017, 6.1)
+                (2018, 8.0)
+                (2019, 10.0)
+                (2020, 11.7)
+                (2021, 13.8)
+                (2022, 16.4)
+                (2023, 19.8)
+                (2024, 24.4)
+            };
+            % 2025 projection in a different color
+            \addplot[fill=red!60, draw=black] coordinates {
+                (2025, 30.9)
+            };
+            \legend{Historical Data, Projection}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{IoT device growth statistics. The exponential increase correlates with the expanding attack surface and the proliferation of botnets such as SlumX.}
+        \begin{center}\small IoT device growth chart: shows the projected increase in connected devices and its impact on the attack surface.\end{center}
+    \label{fig:iot_stats}
+\end{figure}
+
+
+
 Over time, we have seen a number of variants of botnets that have come from the Mirai code. Each of these variants have included improvements and many ways to target different devices\cite{bertino2016botnets}. An example of one of the newer, more advanced versions of a botnet is the "Hitori" family of botnets. The Hitori family is unique in that it supports multiple architectures (both x86 and ARM) and includes advanced techniques for escaping detection ("evasion"). The Hitori implementation that we have studied in this article is indicative of the continuing development of malware that targets IoT devices and includes additional capabilities for persistence and diverse ways to launch attacks
+
+% --- Mirai-Hitori Timeline (English, IEEE style) ---
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        node distance=1.5cm,
+        year/.style={circle, draw=blue!60, fill=blue!5, very thick, minimum size=1cm, font=\bfseries},
+        event/.style={rectangle, draw=black!60, fill=gray!5, rounded corners, align=center, font=\small, inner sep=5pt},
+        arrow/.style={-Latex, thick, blue!80}
+    ]
+        % Central timeline
+        \draw[line width=2pt, gray!30] (0,0) -- (0,-10);
+
+        % 2016 - Mirai
+        \node[year] (y16) at (0,0) {2016};
+        \node[event, right=1cm of y16] (e16) {\textbf{Mirai (Original)}\\Attacks on DynDNS and Krebs\\Source code released ("Anna-Senpai")};
+        \draw[arrow] (y16) -- (e16);
+
+        % 2017 - Satori
+        \node[year] (y17) at (0,-2.5) {2017};
+        \node[event, left=1cm of y17] (e17) {\textbf{Satori / Okiru}\\Exploits in Huawei/Realtek routers\\No brute force, exploit-based};
+        \draw[arrow] (y17) -- (e17);
+
+        % 2018 - Masuta
+        \node[year] (y18) at (0,-5) {2018};
+        \node[event, right=1cm of y18] (e18) {\textbf{Masuta \& OMG}\\Advanced evasion and proxies\\Modular architecture};
+        \draw[arrow] (y18) -- (e18);
+
+        % 2020-2021 - Moobot
+        \node[year] (y21) at (0,-7.5) {2021};
+        \node[event, left=1cm of y21] (e21) {\textbf{Moobot \& Mukanashi}\\Persistence in DVR systems\\High-value targets};
+        \draw[arrow] (y21) -- (e21);
+
+        % 2023 - Hitori
+        \node[year, draw=red!80, fill=red!10] (y23) at (0,-10) {2023};
+        \node[event, right=1cm of y23, draw=red, line width=1pt] (e23) {\textbf{Hitori (SlumX)}\\Multi-architecture support (12+)\\Anti-analysis and encryption techniques};
+        \draw[arrow, red] (y23) -- (e23);
+
+    \end{tikzpicture}
+    \caption{Evolutionary timeline of the Mirai botnet family up to the Hitori variant.}
+        \begin{center}\small Timeline: illustrates the evolution from Mirai to the Hitori (SlumX) variant.\end{center}
+    \label{fig:mirai_timeline}
+\end{figure}
+
 
 The large-scale destruction of IoT botnets presents unique difficulties for cybersecurity experts given their worldwide, dispersed architecture, the diversity of devices, and the inherent lack of security in many of these devices; thus, there is a need for new and innovative ways of detecting and countering IoT botnet threats, which traditional security measures do not sufficiently provide. To efficiently and effectively thwart these types of malicious activities, it is important to learn about the underlying technical specifications of IoT botnets\cite{bertino2016botnets}. A tremendous amount of research has been performed on IoT botnets; however, researchers still have very little understanding of the specific technical implementations and behavioural characteristics of the more sophisticated types of IoT botnets like the Hitori family, with specific focus on the SlumX version. The limited research on this family of IoT botnets highlights the importance of this research as it aims to shed light on how the lower-cost IoT botnets can create large-scale impact and deliver innovative security solutions.
 
 \section{Problem Statement}
 
-While extensive research has been conducted on IoT Botnets; there still exists a major gap in knowledge regarding the particular types of technology used to develop an IoT botnet and also regarding how to identify advanced Mirai variants by examining their behaviour. Even though the Hitori family (more specifically its SlumX variant) has a highly sophisticated design, it has not yet received much academic research. There is potential for this type of system to cause disruption on a global scale and, therefore, this dissertation will attempt to answer the following questions:
-
-\begin{itemize}
-    \item What are the core architectural components of the SlumX botnet implementation?
-    \item How does the command and control infrastructure operate to manage infected devices?
-    \item What attack vectors and methodologies are implemented within the codebase?
-    \item How do the evasion and persistence mechanisms differ from previous Mirai variants?
-    \item What defensive measures can be derived from understanding this implementation?
-\end{itemize}
-
-Because there is not yet an extensive technical study of the Hitori(SlumX) botnet's variant, the cybersecurity field lacks the ability to change its tactics against it as well as keep track of the turning point of an evolving cyber threat to IoT Security
+While extensive research has been conducted on IoT Botnets; there still exists a major gap in knowledge regarding the particular types of technology used to develop an IoT botnet and also regarding how to identify advanced Mirai variants by examining their behaviour. Even though the Hitori family (more specifically its SlumX variant) has a highly sophisticated design, it has not yet received much academic research. There is potential for this type of system to cause disruption on a global scale and, therefore, this dissertation will attempt to address these gaps.
 
 \section{Objectives}
 
@@ -177,25 +260,10 @@ The cybersecurity community will conduct an in-depth technical study of the Hito
 
 \begin{enumerate}
     \item Investigate the underlying code architecture of the SlumX platform to determine the major functions it serves as well as its operation.
-    \item Review the communication method between Command and Control (C\&C) server and SlumX and design of the server. 
     \item Identify and assess the types of techniques for performing attacks against a target device (DDoS and delivery method). 
-    \item Evaluate how SlumX supports more than one architecture and also have a cross-platform ability to work across different operating systems.
-    \item Determine what form of evasion techniques and anti-analysis are incorporated into the SlumX source code
-    \item Research and write about the capability of scanning and exploiting IoT devices. 
-    \item Recommend possible methods to mitigate the risks associated with the vulnerabilities and patterns of behavior you discover
+    \item Evaluate how SlumX supports more than one architecture and also has a cross-platform ability to work across different operating systems.
+    \item Recommend possible methods to mitigate the risks associated with the vulnerabilities and patterns of behavior discovered.
 \end{enumerate}
-
-\section{Contributions}
-
-The Cybersecurity Research created through this project has added significant value to the cyber security space. Specifically: 
-
-\begin{itemize}
-    \item \textbf{Technical Documentation:} The first large scale academic report published on the technical details, implementation and capabilities of the SlumX Botnet. This report is the most in-depth study to date into how SlumX was put together
-    \item \textbf{Threat Intelligence:} Provides further clarity into the evolution of the Mirai family of variants and trends involved in the creation of IoT Botnets.
-    \item \textbf{Attack Vector Analysis:} A comprehensive listing and categorisation of the numerous means through which the botnet was able to attack. 
-    \item \textbf{Defensive Insights:} Highlights key Indicators of Compromise (IOCs) and Behaviors that Systems can leverage to detect the SlumX Botnet. 
-    \item \textbf{Research Foundation:} A benchmark for the entire Cyber Security and Advanced Threat Research community for future investigations involving both IoT Botnets and Means of Mitigating Their Effects. 
-\end{itemize}
 
 \section{Document Organization}
 
@@ -209,102 +277,111 @@ Chapter 4 contains information about the methodology used for this research, inc
 
 Chapter 5 offers the analysis and discussions from the analysis of code, documenting the processes involved in creating architectural documentation, and gathering and performing a threat assessment.
 
-Chapter 6 offers the major conclusions drawn from the research performed on this IoT botnet, as well as the limitations of the study, and suggestions for further research on IoT botnet analysis and mitigation.
-
 % capitulo 2
 \chapter{Theoretical Framework}
 
-\section{Internet of Things (IoT) Security Fundamentals}
+\section{Internet of Things (IoT)}
 
-The Internet of Things (IoT) refers to the many connected (and therefore, interrelated) devices used for generating, processing and transmitting information between networks and systems. The information security aspect of IoT is complicated by many factors, including (but not limited to): an increasingly large percentage of IoT devices have limited resources available for implementing security; there are no standard-type security protocols that apply across all brands of devices; many IoT devices do not receive regular security updates; and many users never change the default credentials on their devices.
+The Internet of Things (IoT) refers to the many connected (and therefore, interrelated) devices used for generating, processing, and transmitting information between networks and systems. The information security aspect of IoT is complicated by many factors, including (but not limited to): an increasingly large percentage of IoT devices have limited resources available for implementing security; there are no standard-type security protocols that apply across all brands of devices; many IoT devices do not receive regular security updates; and many users never change the default credentials on their devices.
 
+\subsection{IoT Security Fundamentals}
 
 Security weaknesses in IoT devices are typically found at each level of an IoT device: the hardware has weak implementations of encryption and/or has debugging interfaces that can be accessed; the firmware contains vulnerabilities that are not fixed through software updates as they become available, and insecure coding practices may be present; the communication method for transmitting data often uses unencrypted transmission and authenticating users may involve weak authentication protocols; the application in use may not provide strong access control mechanisms and does not provide sufficient input validation.\cite{mahmoud2015iot, pa2015internet}.
 
 The security challenges are compounded by the heterogeneous nature of IoT deployments, where devices from different manufacturers with varying security capabilities coexist in the same network environment. This diversity creates attack surfaces that can be exploited by sophisticated malware designed to target multiple device types and architectures.
 
+% Table: Common Security Vulnerabilities in IoT Layers
+\begin{table}[htbp]
+    \centering
+    \caption{Common Security Vulnerabilities in IoT Layers}
+    \label{tab:iot_vulns}
+    \begin{tabular}{@{}llp{8cm}@{}}
+        {Layer} & \textbf{Component} & \textbf{Security Weakness} \\
+        \midrule
+        Hardware & Debug Interfaces & Exposed UART/JTAG ports allowing direct physical access to the device\cite{mahmoud2015iot}. \\
+        Firmware & Update Mechanism & Lack of signed updates and presence of hardcoded credentials or backdoors\cite{pa2015internet}. \\
+        Network & Transmission & Use of clear-text protocols (Telnet, HTTP) allowing traffic interception\cite{silva2013botnets}. \\
+        Application & Access Control & Insufficient input validation and weak authentication mechanisms. \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
 \section{Botnet Architecture and Command and Control Systems}
 
-Botnets have become one of the biggest threats in today’s cyber security landscape. A botnet is a network of infected computers or devices controlled remotely by a cybercriminal. The design of botnets is continually evolving and today, modern botnets contain highly sophisticated Command and Control (C\&C) systems that allow for constant communication with the infected machines.
+\subsection{Overview of Botnet Design}
 
-Historically, botnets have had a centralised architecture – in this method, the compromised machines (or "bots" or "zombies") communicate directly with C\&C servers. This architecture is often effective for distributing commands, but it is vulnerable because there are single points of failure and all corrupt devices rely on one centralised system to receive commands. More advanced botnets today have moved to more resilient architectures, like peer-to-peer networks, Domain Generation Algorithms (DGA), and multi-tiered architectures.
+Botnets have become one of the biggest threats in today’s cybersecurity landscape. A botnet is a network of infected computers or devices controlled remotely by a cybercriminal. The design of botnets is continually evolving, and today, modern botnets contain highly sophisticated Command and Control (C\&C) systems that allow for constant communication with the infected machines.
 
-The C\&C infrastructure provides for several of the critical functions of the botnet - distributing commands for conducting attacks, exfiltrating data, maintaining the health and management of the botnet, and co-ordinating attacks across multiple botnets\cite{silva2013botnets}.
+\subsection{Centralized vs. Decentralized Architectures}
 
-Modern IoT botnets have used these same fundamental concepts of architectural design to incorporate the differences found in IoT devices when creating their bots. They have developed lightweight communication protocols for these devices, designed multi-architecture payloads that can target various types of devices and created device-specific exploitation techniques for persistence \cite{gartner2023iot, kuzin2018analysis}.
+Historically, botnets have had a centralized architecture – in this method, the compromised machines (or "bots" or "zombies") communicate directly with C\&C servers. This architecture is often effective for distributing commands, but it is vulnerable because there are single points of failure and all corrupt devices rely on one centralized system to receive commands. More advanced botnets today have moved to more resilient architectures, like peer-to-peer networks, Domain Generation Algorithms (DGA), and multi-tiered architectures.
+
+% Figure: Comparison of Botnet Architectures
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        node distance=1.5cm,
+        server/.style={rectangle, draw=red!80, fill=red!10, very thick, minimum size=1cm, align=center},
+        bot/.style={circle, draw=blue!60, fill=blue!5, thick, minimum size=0.8cm},
+        link/.style={-, thick, gray}
+    ]
+    % --- Left Side: Centralized ---
+    \node [server] (c2) at (0,0) {\textbf{C\&C Server}};
+    \node [bot] (b1) at (-1.5, -2) {Bot};
+    \node [bot] (b2) at (0, -2) {Bot};
+    \node [bot] (b3) at (1.5, -2) {Bot};
+    \draw [link] (c2) -- (b1);
+    \draw [link] (c2) -- (b2);
+    \draw [link] (c2) -- (b3);
+    \node at (0, -3.3) {\textbf{(A) Centralized Architecture}};
+    \node [align=center, font=\small] at (0, -4) {Single Point of Failure\\Direct Command Distribution};
+    % --- Right Side: Decentralized (P2P) ---
+    \begin{scope}[xshift=6cm]
+        \node [bot] (p1) at (0,0) {Bot};
+        \node [bot] (p2) at (-1.5, -1.5) {Bot};
+        \node [bot] (p3) at (1.5, -1.5) {Bot};
+        \node [bot] (p4) at (0, -2.5) {Bot};
+        % Mesh connections
+        \draw [link] (p1) -- (p2);
+        \draw [link] (p1) -- (p3);
+        \draw [link] (p2) -- (p4);
+        \draw [link] (p3) -- (p4);
+        \draw [link] (p2) -- (p3);
+        \node at (0, -3.3) {\textbf{(B) Decentralized (P2P)}};
+        \node [align=center, font=\small] at (0, -4) {High Resiliency\\Peer-to-Peer Command Propagation};
+    \end{scope}
+    \end{tikzpicture}
+    \caption{Comparison of Botnet Architectures: Centralized vs. Decentralized Models.}
+        \begin{center}\small Visual comparison of centralized and decentralized botnet architectures.\end{center}
+    \label{fig:botnet_arch}
+\end{figure}
+
+\subsection{C\&C Infrastructure Functions}
+
+The C\&C infrastructure provides several critical functions of the botnet: distributing commands for conducting attacks, exfiltrating data, maintaining the health and management of the botnet, and coordinating attacks across multiple botnets.\cite{silva2013botnets}.
+
+Modern IoT botnets have used these same fundamental concepts of architectural design to incorporate the differences found in IoT devices when creating their bots. They have developed lightweight communication protocols for these devices, designed multi-architecture payloads that can target various types of devices, and created device-specific exploitation techniques for persistence.\cite{gartner2023iot, kuzin2018analysis}.
 
 \section{DDoS Attack Methodologies and Vectors}
 
+\subsection{Types of DDoS Attacks}
+
 The Distributed Denial of Service Attack (DDoS) is a major way of making money off Botnets here as IoT devices take over the processing power and bandwidth from other users’ connections. These attacks are effective because of the sheer number of available devices and their ability to spread across many different locations in order to create a volume of traffic that is very difficult for targeted systems to mitigate against. 
 
-There are three main types of DDoS attacks:
+\begin{itemize}
+    \item \textbf{Volumetric attacks:} Massive volumes of traffic flood into and consume all of the available bandwidth on a target connection.
+    \item \textbf{Protocol attacks:} Techniques are used to take advantage of the design weaknesses within certain network protocols to consume all resources associated with a server.
+    \item \textbf{Application-layer attacks:} Crafted fake requests are made against specific services and applications, which appear to be legitimate (as they are coming from the IP address of an infected system). 
+\end{itemize}
 
-1. Volumetric attacks: where massive volumes of traffic flood into and consume all of the available bandwidth on a target connection.
-2. Protocol attacks: where techniques are used to take advantage of the design weaknesses within certain network protocols to consume all resources associated with a server.
-3. Application-layer attacks: where crafted fake requests are made against specific services and applications, which appear to be legitimate (as they are coming from the IP address of an infected system). 
 
-Volumetric attacks include UDP Floods, ICMP Floods, Amplification Attacks where the exploited public service uses the ability to multiply the amount of attack traffic generated against the target. Protocol Attacks exploit issues associated with how a TCP connection is set up/established as well as bugs related to fragmented packet processing used through Routing Protocols (RIP, BGP). Application-Layer Attacks can include targeted attacks made against HTTP Services and DNS Services along with any applications that may include specifically crafted requests intended to consume CPU time through consuming server resources. \cite{zargar2013survey}.
+\subsection{Examples of DDoS Techniques}
+
+Volumetric attacks include UDP Floods, ICMP Floods, and Amplification Attacks where the exploited public service uses the ability to multiply the amount of attack traffic generated against the target. Protocol Attacks exploit issues associated with how a TCP connection is set up/established as well as bugs related to fragmented packet processing used through Routing Protocols (RIP, BGP). Application-Layer Attacks can include targeted attacks made against HTTP Services and DNS Services along with any applications that may include specifically crafted requests intended to consume CPU time through consuming server resources.\cite{zargar2013survey}.
 
 Novice attack avenues have been provided by IoT Botnets and use the unique abilities and restrictions of connected devices to create New Attack Vectors for cybercriminals. This includes Cyber Attacks using the Sensors of an IoT Device to obtain data concerning the intended target, Cyber Attacks using a specific protocol or service unique to an IoT Device, and Cyber Attacks that remain effective against an intended target by maintaining continued pressure due to the fact many IoT Devices are always On.
 
-\section{Mirai Botnet Family and Evolutionary Patterns}
-
-The release of the Mirai botnet in 2016 revolutionized how the world views IoT Security. It was the first time an IoT device could be used to conduct large-scale attacks and demonstrated that many other IoT devices were vulnerable to similar attacks. In its initial release, Mirai was aimed at consumer-grade devices that had default passwords or weak passwords, and these devices were accessed using brute force. After accessing the device, Mirai would download and execute malicious software onto the device.
-
-
-The architecture of Mirai created several patterns that have been continued and enhanced in newer variants of Mirai and other bots. A common pattern is the use of a "scanning" module to find potential targets, a "loader" component that delivers and executes the payload, and a "bot" component that maintains contact with Command and Control (C\&C) servers and executes attack commands.\cite{antonakakis2017understanding}.
-
-After the public release of the Mirai Source Code, many different versions of the virus have been created that have more advanced functions. These newer versions include new types of techniques to avoid detection from authorities, an even larger number of targets and attack options than earlier versions, and improved ways to maintain themselves on infected devices. The development of these newer strains of the Mirai Virus has been characterized by a continuing process of sophistication and specialization, with strains that are designed to target only a specific type of device or geographical area.\cite{marzano2018evolution, herwig2019measurement}.
-
-The Hitori family is representing a major development in this family tree with its ability to support multiple architectures as well as have advanced evasion techniques and improve upon existing attack methods. Understanding these developments and patterns will help predict how future IoT botnet threats will evolve, allowing for the formulation of proactive defence strategies.
-
-\section{Malware Analysis Techniques and Methodologies}
-
-The unique characteristics of embedded systems and their limitations make it critical for analysts of IoT malware to create techniques that offer an understanding of how it behaves as well as what it does. Two general techniques for conducting analysis on IoT malware include static and dynamic.
-
-Static Analysis is when the analyst views the malware code without it being executed, and will perform an analysis of the malware by identifying various functions, control flows, data structures, and other embedded strings within the code. Through Static Analysis, the analyst determines how the malware works and what actions will occur when run on a target system.
-
-The Static Analysis technique will allow the analyst to use disassembly to determine the overall structure of the malware program, string analyses to identify hardcoded values, such as encryption keys and domain names, control flow analyses to develop maps of how the malware executes and to utilize cross-reference analyses to understand how the malware functions interact and how data is used. As such, Static Analysis is particularly useful for IoT malware since it does not require execution environments for several hardware architectures.
-
-Dynamic Analysis is when the analyst executes the malware in a controlled environment to observe the decreased overall behavior of the malware on the system, i.e., the malware's ability to communicate over the network, change the operating system, and interact with external services. Because of the complex nature of IoT malware, there may be difficulties in managing to execute or virtualize multiple hardware platforms as well as the necessity to provide an isolated environment to observe safely the communications between the C\&C servers.
-
-The overall understanding of malware behavior comes from Hybrid analysis methods combining Static \& Dynamic approaches. As most Modern malware will contain some form of anti-analysis techniques, they will use runtime packing or have environmental dependent behaviours that are only uncovered in certain conditions.
-
-Additionally, an analyst's methodology must reflect the various aspects of IoT malware such as Cross-Platform Compilation, Embedded Credentials, Exploitation Techniques specific to devices, and Resource-Constrained Communication Protocols.\cite{mansfield2016ddos}. Modern malware analysis techniques must evolve to address the unique challenges posed by IoT-focused threats \cite{meidan2018n}.
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[scale=0.9]
-\begin{axis}[
-    title={Global IoT Architecture Distribution},
-    xlabel={Architecture Type},
-    ylabel={Deployed Devices (Millions)},
-    symbolic x coords={MIPS,ARM,x86,PowerPC,SPARC,M68k,SH4},
-    xtick=data,
-    ybar,
-    bar width=20pt,
-    legend pos=north east,
-    grid=major,
-    width=14cm,
-    height=9cm,
-    x tick label style={rotate=45,anchor=east}
-]
-\addplot coordinates {(MIPS,45) (ARM,120) (x86,25) (PowerPC,8) (SPARC,3) (M68k,2) (SH4,5)};
-\legend{Industry Estimates}
-\end{axis}
-\end{tikzpicture}
-\caption{Global IoT Device Architecture Distribution (Industry Estimates \cite{statista2024iot})}
-\label{fig:iot_architecture_distribution}
-\end{figure}
-
-The diversity of IoT architectures, as illustrated in Figure \ref{fig:iot_architecture_distribution}, presents unique challenges for both security implementation and threat mitigation. ARM-based devices dominate the market due to their power efficiency, while MIPS architectures remain prevalent in networking equipment. This heterogeneous landscape complicates standardized security approaches \cite{statista2024iot, vishwakarma2023targeted}.
-
-\section{Network Security in IoT Environments}
-
-Due to the heterogeneity of IoT devices and the limitations imposed by existing security frameworks on these devices, network security for IoT environments is challenging. The distributed architecture of IoT networks has potentially many points of failure; therefore, the use of adaptive security techniques that can accommodate different communication protocols and device capabilities is essential for securing IoT networks.
-
-The additional complication is that many IoT devices are limited by their resources, and as a result, many devices cannot implement comprehensive security solutions. Existing cryptographic techniques can be computationally intensive for low-power devices, thus the need for lightweight security protocols that can be used with IoT devices.
-
+% Additional sections for Chapters 3, 4, and 5 will follow a similar restructuring pattern.
 % capitulo 3
 \chapter{State of the Art}
 
@@ -363,6 +440,36 @@ The incorporation of emerging technologies, like Blockchain for Device Authentic
 \chapter{Methodology}
 
 \section{Research Approach}
+A qualitative analysis of the SlumX botnet's source code, as obtained from the SlumX GitHub repository, was conducted using a qualitative research-design methodology following best practices in malware analysis. This research-design methodology has been tailored specifically for IoT threat analysis.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        node distance=2.2cm,
+        startstop/.style={rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=red!10},
+        process/.style={rectangle, minimum width=3.5cm, minimum height=1cm, text centered, draw=black, fill=blue!5},
+        arrow/.style={thick,->,>=Stealth, shorten >=1mm, shorten <=1mm}
+    ]
+    % Nodos principales
+    \node (phase1) [startstop] {\textbf{Phase 1: Data Collection}};
+    \node (phase2) [process, below=of phase1] {\textbf{Phase 2: Static Code Analysis}};
+    \node (phase3) [process, below=of phase2] {\textbf{Phase 3: Threat Modeling}};
+    \node (phase4) [startstop, below=of phase3, fill=green!10] {\textbf{Phase 4: Validation}};
+
+    % Descripciones (las desplazamos a la derecha para que no queden en la trayectoria de las flechas)
+    \node (p1desc) [font=\footnotesize, align=center, below=0.25cm of phase1, xshift=3.2cm] {GitHub Repository \& Telegram\\Source Code Acquisition};
+    \node (p2desc) [font=\footnotesize, align=center, below=0.25cm of phase2, xshift=3.2cm] {Manual Code Review\\Structure \& Logic Assessment\\(No runtime execution)};
+    \node (p3desc) [font=\footnotesize, align=center, below=0.25cm of phase3, xshift=3.2cm] {Attack Surface Mapping\\Impact Assessment};
+    \node (p4desc) [font=\footnotesize, align=center, below=0.25cm of phase4, xshift=3.2cm] {Cross-referencing Findings\\with Threat Intelligence};
+
+    % Flechas (con anchors y shorten para que queden limpias)
+    \draw [arrow] (phase1.south) -- (phase2.north);
+    \draw [arrow] (phase2.south) -- (phase3.north);
+    \draw [arrow] (phase3.south) -- (phase4.north);
+    \end{tikzpicture}
+    \caption{Research Methodology Flowchart applied to the SlumX analysis.}
+    \label{fig:methodology_flow}
+\end{figure}
 
 A qualitative analysis of the SlumX botnet's source code, as obtained from the SlumX GitHub repository, was conducted using a qualitative research-design methodology following best practices in malware analysis. This research-design methodology has been tailored specifically for IoT threat analysis.
 
@@ -376,22 +483,38 @@ A thorough static analysis of all potential paths through the code, all function
 
 \section{Data Collection and Source Material}
 
+
 The source material for this analysis is the full source code repository offered by GitHub at the repository mat1520/slumpx. The repository contains an implementation of SlumX, including the bot client code, the command and control server, the build scripts, and additional tools related to the botnet.
 
-The repository structure includes several key components:
-\begin{itemize}
-    \item \texttt{bot.c} - Main bot client implementation (1,746 lines)
-    \item \texttt{server.c} - Command and control server code (845 lines)
-    \item \texttt{build.py} - Automated build and deployment script
-    \item \texttt{cc.py} - Cross-compilation management tool (199 lines)
-    \item \texttt{scankill.c} - Device scanning and exploitation module
-    \item \texttt{loader/} - Payload delivery system components
-    \item \texttt{Netto.py} - Netis device exploitation tool
-\end{itemize}
+Additionally, the SlumX source code was obtained through searches in Telegram groups dedicated to sharing malware source code. These groups provided access to various repositories, including the one analyzed in this research.
 
-Further clarification regarding the planned deployment and operation of the Botnet could be determined from the additional context provided by the comments that were embedded into the source code, the configuration files for the bots, and the build scripts used to create them. In addition, the analysis included information regarding hard-coded IP addresses, default usernames and passwords, and specifications regarding where the bot would direct its attacks.
+% --- SlumX Source Code Repository Inventory Table ---
+\begin{table}[htbp]
+    \centering
+    \caption{SlumX Source Code Repository Inventory}
+    \label{tab:repo_inventory}
+    \begin{tabularx}{\textwidth}{@{}l l X@{}}
+        	{Filename} & \textbf{Size (LOC)} & \textbf{Functional Description} \\
+        \midrule
+        	exttt{bot.c} & 1,746 & Main client payload. Contains attack vectors, connection logic, and evasion techniques. \\
+        \addlinespace
+        	exttt{server.c} & 845 & Command \& Control (C2) server. Manages bot connections and broadcasts attack commands. \\
+        \addlinespace
+        	exttt{cc.py} & 199 & Cross-compilation script. Automates building binaries for 12+ architectures. \\
+        \addlinespace
+        	exttt{scankill.c} & N/A* & Scanner module responsible for identifying vulnerable devices and terminating competing malware. \\
+        \addlinespace
+        	exttt{Netto.py} & N/A* & Specialized exploit tool targeting Netis router vulnerabilities via UDP injection. \\
+        \bottomrule
+    \end{tabularx}
+    \begin{minipage}{\textwidth}
+        \footnotesize \vspace{1mm} 
+    \end{minipage}
+\end{table}
 
 \section{Code Analysis Framework}
+
+Further clarification regarding the planned deployment and operation of the Botnet could be determined from the additional context provided by the comments that were embedded into the source code, the configuration files for the bots, and the build scripts used to create them. In addition, the analysis included information regarding hard-coded IP addresses, default usernames and passwords, and specifications regarding where the bot would direct its attacks.
 
 The SlumX implementation was subject to thorough analysis by the use of a multi-layered code-analysis framework that provided a detailed, systematic evaluation of each component of SlumX. The framework consisted of a number of different analytical dimensions that were used to thoroughly capture all aspects of the functionality of the malware.
 
@@ -574,6 +697,7 @@ The core architecture consists of four primary components: the bot client (\text
 
 \end{tikzpicture}
 \caption{SlumX Botnet Architecture Overview}
+\begin{center}\small Diagram showing the overall architecture of the SlumX botnet and the interaction between its main components.\end{center}
 \label{fig:architecture}
 \end{figure}
 
@@ -622,6 +746,7 @@ Bots communicate with the C\&C (Command and Control) Server via plain TCP socket
 sockprintf(mainCommSock, "\x1b[1;32mKansen shita\x1b[0;33m > \x1b[1;32m[\x1b[0;37m%s\x1b[1;32m]  \x1b[0m", 
     (char *)inet_ntoa(ourIP), (char *)VERSION);
 \end{lstlisting}
+\begin{center}\small Code: message sent by the bot to the C\&C server, identifying architecture and version.\end{center}
 
 The implementation also has the functionality to count the number of bots per architecture type. 
 
@@ -633,6 +758,7 @@ sprintf(botnet4, "\x1b[1;37m Bots SPC \x1b[0;31m[\x1b[1;33m%d\x1b[0;31m]\r\n", s
 sprintf(botnet5, "\x1b[1;37m Bots Arm \x1b[0;31m[\x1b[1;33m%d\x1b[0;31m]\r\n", arm());
 sprintf(botnet6, "\x1b[1;37m Bots SH4 \x1b[0;31m[\x1b[1;33m%d\x1b[0;31m]\r\n", sh4());
 \end{lstlisting}
+\begin{center}\small Code: counts the number of bots connected per architecture on the C\&C server.\end{center}
 
 \subsection{Command Structure}
 
@@ -687,6 +813,7 @@ void sendUDP(unsigned char * target, int port, int timeEnd, int spoofit,
     }
 }
 \end{lstlisting}
+\begin{center}\small Code: UDP flood attack implementation with spoofing and configurable packet size.\end{center}
 
 The UDP flood attack includes advanced features such as randomized source IP generation, configurable packet sizes, and adaptive timing controls to optimize attack effectiveness while evading detection systems.
 
@@ -717,6 +844,7 @@ void sendTCP(unsigned char * target, int port, int timeEnd, int spoofit,
         sizeof(struct tcphdr) + packetsize);
 }
 \end{lstlisting}
+\begin{center}\small Code: function to perform TCP SYN flood attacks, saturating the target's connection table.\end{center}
 
 \subsubsection{Connection Holding Attacks}
 The HOLD attack maintains numerous simultaneous connections to exhaust server resources:
@@ -739,6 +867,7 @@ void sendHOLD(unsigned char * ip, int port, int end_time) {
     }
 }
 \end{lstlisting}
+\begin{center}\small Code: attack that keeps open connections to exhaust the victim server's resources.\end{center}
 
 \subsection{HTTP-based Attacks}
 
@@ -751,6 +880,7 @@ strcpy(request + strlen(request), ip);
 strcpy(request + strlen(request), "\r\nUser-Agent: ");
 strcpy(request + strlen(request), useragents[rand() % (sizeof(useragents) / sizeof(useragents[0]))]);
 \end{lstlisting}
+\begin{center}\small Code: generates HTTP requests with random user agents to evade detection.\end{center}
 
 The implementation includes 15 different user agent strings covering various browsers and platforms to avoid detection based on user agent filtering.
 
@@ -791,6 +921,7 @@ s.sendto(login, (self.ip, 53413))
 time.sleep(1.5)
 s.sendto(command, (self.ip, 53413))
 \end{lstlisting}
+\begin{center}\small Code: exploitation for Netis routers, executing remote commands via UDP.\end{center}
 
 This exploit targets a specific vulnerability in Netis router firmware that allows command execution through UDP packet injection.
 
@@ -823,6 +954,7 @@ This exploit targets a specific vulnerability in Netis router firmware that allo
     \draw [arrow] (execute) -- (connect);
 \end{tikzpicture}
 \caption{SlumX Infection Process Flow}
+\begin{center}\small Flowchart illustrating the infection and propagation process of SlumX in IoT devices.\end{center}
 \label{fig:infection_flow}
 \end{figure}
 
@@ -840,6 +972,7 @@ strncpy(argv[0], "", strlen(argv[0]));
 argv[0] = "";
 prctl(PR_SET_NAME, (unsigned long) mynameis, 0, 0, 0);
 \end{lstlisting}
+\begin{center}\small Code: shows how the bot hides its process by changing the visible name in the system.\end{center}
 
 \subsection{Anti-Analysis Features}
 
@@ -867,6 +1000,7 @@ void ensurePersistence() {
     }
 }
 \end{lstlisting}
+\begin{center}\small Code: function implementing persistence mechanisms to keep the bot active after reboots.\end{center}
 
 The analysis reveals significant attention to performance optimization and scalability in the SlumX implementation.
 
@@ -890,6 +1024,7 @@ The analysis reveals significant attention to performance optimization and scala
 \end{axis}
 \end{tikzpicture}
 \caption{Lines of Code Distribution for Different Attack Vector Implementations}
+\begin{center}\small Chart comparing the number of lines of code for each attack vector implemented in SlumX.\end{center}
 \label{fig:attack_complexity}
 \end{figure}
 
@@ -946,18 +1081,16 @@ The quantitative analysis of implementations of different attack vectors has sho
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[
-    % Estilo base para las cajas de la matriz
     box/.style={
-        rectangle, 
-        draw=black, 
-        thick, 
-        minimum width=4cm, 
-        minimum height=2.5cm, 
-        align=center, % Permite usar \\ para saltos de línea
+        rectangle,
+        draw=black,
+        thick,
+        minimum width=4cm,
+        minimum height=2.5cm,
+        align=center,
         font=\small\bfseries,
-        outer sep=0pt % Para que los bordes se toquen perfectamente
+        outer sep=0pt
     },
-    % Estilos para la leyenda pequeña
     legendbox/.style={
         rectangle,
         draw=black,
@@ -967,43 +1100,48 @@ The quantitative analysis of implementations of different attack vectors has sho
 ]
 
     % --- TÍTULO ---
-    \node[font=\large\bfseries] at (4, 1.5) {Security Risk Assessment};
+    \node[font=\large\bfseries] (title) {Security Risk Assessment};
 
-    % --- MATRIZ (2x2) ---
-    
-    % 1. Arriba Izquierda (High Risk - Rojo)
-    \node[box, fill=red!50] (topleft) at (0,0) {Hardcoded\\C\&C Address\\(Single Point\\Failure)};
-    
-    % 2. Arriba Derecha (Medium Risk - Amarillo) - A la derecha del anterior
-    \node[box, fill=yellow!50, right=0cm of topleft] (topright) {Plain Text\\Communication\\(Traffic\\Analysis)};
-    
-    % 3. Abajo Izquierda (Medium Risk - Amarillo) - Debajo del primero
-    \node[box, fill=yellow!50, below=0cm of topleft] (bottomleft) {Fixed Port\\Usage\\(Network\\Filtering)};
-    
-    % 4. Abajo Derecha (Low Risk - Verde) - A la derecha del de abajo
-    \node[box, fill=green!50, right=0cm of bottomleft] (bottomright) {Predictable\\Binary Names\\(Signature\\Detection)};
+    % Espacio entre el título y la matriz
+    \node[below=0.8cm of title] (startmatrix) {};
 
-    % --- LEYENDA (Parte inferior) ---
-    
-    % Contenedor para alinear la leyenda centrada debajo de la matriz
-    \node[below=0.5cm of bottomleft, anchor=west] (legendstart) {};
-    
-    % Item 1: High Risk
-    \node[legendbox, fill=red!50, below=1cm of bottomleft, xshift=0.5cm] (l1) {};
+    % --- MATRIZ 2x2 (centrada) ---
+    % Fila 1
+    \node[box, fill=red!50, below=0cm of startmatrix] (topleft)
+        {Hardcoded\\C\&C Address\\(Single Point\\Failure)};
+
+    \node[box, fill=yellow!50, right=0cm of topleft] (topright)
+        {Plain Text\\Communication\\(Traffic\\Analysis)};
+
+    % Fila 2
+    \node[box, fill=yellow!50, below=0cm of topleft] (bottomleft)
+        {Fixed Port\\Usage\\(Network\\Filtering)};
+
+    \node[box, fill=green!50, right=0cm of bottomleft] (bottomright)
+        {Predictable\\Binary Names\\(Signature\\Detection)};
+
+    % --- LEYENDA CENTRADA ---
+    \node[below=1.2cm of bottomleft] (legendstart) {};
+
+    % Item 1
+    \node[legendbox, fill=red!50, below=0.3cm of bottomleft] (l1) {};
     \node[right=0.2cm of l1] (t1) {High Risk};
-    
-    % Item 2: Medium Risk
+
+    % Item 2
     \node[legendbox, fill=yellow!50, right=1cm of t1] (l2) {};
     \node[right=0.2cm of l2] (t2) {Medium Risk};
-    
-    % Item 3: Low Risk
+
+    % Item 3
     \node[legendbox, fill=green!50, right=1cm of t2] (l3) {};
     \node[right=0.2cm of l3] {Low Risk};
 
 \end{tikzpicture}
+
 \caption{Vulnerability Risk Assessment Matrix}
+\begin{center}\small Risk matrix classifying the vulnerabilities found in the SlumX implementation.\end{center}
 \label{fig:vulnerability_matrix}
 \end{figure}
+
 
 \subsection{Code Quality Vulnerabilities in the Malware Implementation}
 
@@ -1105,7 +1243,7 @@ Y. M. P. Pa, S. Suzuki, K. Yoshioka, T. Matsumoto, T. Kasama, and C. Rossow, "Io
 M. Kuzin, Y. Shmelev, A. Kuskov, and A. Shelukhin, "Analysis of Mirai malicious software," in \emph{Proceedings of the 2018 IEEE Conference of Russian Young Researchers in Electrical and Electronic Engineering (EIConRus)}, 2018.
 
 \bibitem{statista2024iot}
-Statista Research Department, "Internet of Things (IoT) connected devices installed base worldwide from 2019 to 2030," \emph{Statista Market Insights}, 2024. [Online]. Available: https://www.statista.com/statistics/471264/iot-number-of-connected-devices-worldwide/
+Statista Research Department, "Internet of Things (IoT) connected devices installed base worldwide from 2019 to  2030," \emph{Statista Market Insights}, 2024. [Online]. Available: https://www.statista.com/statistics/471264/iot-number-of-connected-devices-worldwide/
 
 \bibitem{gartner2023iot}
 Gartner Inc., "Gartner Says the Internet of Things Will Grow to 26 Billion Units By 2023," \emph{Gartner Press Release}, 2023.
