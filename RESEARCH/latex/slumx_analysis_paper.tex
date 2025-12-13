@@ -143,6 +143,25 @@ La investigación conlleva un análisis técnico, en base a la variante Hitori d
 % lista figuras
 \listoffigures
 
+% lista acronimos
+\chapter*{List of Acronyms}
+\addcontentsline{toc}{chapter}{List of Acronyms}
+\begin{description}
+    \item[IoT] Internet of Things
+    \item[DDoS] Distributed Denial of Service
+    \item[C\&C] Command and Control
+    \item[TCP] Transmission Control Protocol
+    \item[UDP] User Datagram Protocol
+    \item[HTTP] Hypertext Transfer Protocol
+    \item[IP] Internet Protocol
+    \item[LOC] Lines of Code
+    \item[SSH] Secure Shell
+    \item[UPnP] Universal Plug and Play
+    \item[MIPS] Microprocessor without Interlocked Pipelined Stages
+    \item[ARM] Advanced RISC Machine
+    \item[CVE] Common Vulnerabilities and Exposures
+\end{description}
+
 % capitulo 1
 \chapter{Introduction}
 
@@ -309,7 +328,7 @@ The security challenges are compounded by the heterogeneous nature of IoT deploy
 
 \subsection{Overview of Botnet Design}
 
-Botnets have become one of the biggest threats in today’s cybersecurity landscape. A botnet is a network of infected computers or devices controlled remotely by a cybercriminal. The design of botnets is continually evolving, and today, modern botnets contain highly sophisticated Command and Control (C\&C) systems that allow for constant communication with the infected machines.
+As the severity of cyber threats increases, the development of botnets has created a significantcybersecurity problem. The evolution of botnets is ongoing as well, with today's modern-day botnets featuring an advanced system of Command and Control that facilitates the ability for criminals to communicate with the infected devices consistently.
 
 \subsection{Centralized vs. Decentralized Architectures}
 
@@ -619,9 +638,8 @@ Documentation of the analysis methodology and results of the investigation was d
 
 \section{SlumX Botnet Architecture Overview}
 
-An analytical overview of the SlumX botnet shows sophisticated multi-component architecture allowing for large-scale IoT device compromise as well as DDoS attack coordination. In addition, the botnet also exhibits advancements that have occurred since the time of the original Mirai botnet codebase by adding additional functionality and improved operational security features.
-
-The core architecture consists of four primary components: the bot client (\texttt{bot.c}) that executes on compromised devices, the command and control server (\texttt{server.c}) that manages the botnet infrastructure, the loader system that handles payload delivery and execution, and auxiliary tools for device scanning and exploitation.
+Analytically reviewed, we see that the SlumX botnet has a highly advanced and complex architecture which is Multi-component architecture which allows it to have large amounts of IoT device compromises, as well as provide a means to coordinate large scale distributed denial of service attacks on victims via the internet. In addition to this, the SlumX Botnet is also built on off of the latest Mirai Botnet, providing additional features and operational security that were not available to the original Mirai botnet code base.
+The core components of the SlumX Botnet consist of the following four (4) primary components: One (1) The bot client (bot.c) that is executed once it has been compromised, Two (2) The command and control server (server.c), which is responsible for managing and operating the infrastructure of the entire botnet, Three (3) The loader system, which is responsible for delivering and executing the payloads on the infected devices, and Four (4) Various auxiliary tools that allow for the scanning and exploitation of IoT devices.
 
 \begin{figure}[H]
 \centering
@@ -1106,27 +1124,9 @@ Detection systems will face some obstacles when implementing this.
     \item Many implementations provide anti-forensic capabilities that hinder the capabilities of the incident response team to react to the attack. 
 \end{itemize}
 
-The quantitative analysis of implementations of different attack vectors has shown that there are large differences in code complexity for each vector, as shown in Figure  \ref{fig:attack_complexity}. below. These measurements represent physical lines of code (LOC) for the SlumX codebase's individual attack functions; thus they provide an objective assessment of the complexity of implementing and maintaining each of these vectors. Of all attack vectors, HTTP-based attacks required the largest number of LOC (95 LOC) due to request crafting and user-agent randomisation requirements, while standard flood attacks required the least amount of LOC (35 LOC) simply to send basic packets. The quantitative analysis has therefore revealed a number of weaknesses in the implementation of SlumX, as below: 
+The quantitative analysis of implementations of different attack vectors has shown that there are large differences in code complexity for each vector, as shown in Figure  \ref{fig:attack_complexity}. below. These measurements represent physical lines of code (LOC) for the SlumX codebase's individual attack functions; thus they provide an objective assessment of the complexity of implementing and maintaining each of these vectors. Of all attack vectors, HTTP-based attacks required the largest number of LOC (95 LOC) due to request crafting and user-agent randomisation requirements, while standard flood attacks required the least amount of LOC (35 LOC) simply to send basic packets. The quantitative analysis has therefore revealed a number of weaknesses in the implementation of SlumX. 
 
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[
-    box/.style={
-        rectangle,
-        draw=black,
-        thick,
-        minimum width=4cm,
-        minimum height=2.5cm,
-        align=center,
-        font=\small\bfseries,
-        outer sep=0pt
-    },
-    legendbox/.style={
-        rectangle,
-        draw=black,
-        thick,
-        minimum size=0.5cm
-    }
+
 
 
 
@@ -1169,19 +1169,11 @@ Fixed Port Usage & Medium & Network filtering opportunity \\
 
 \section{Key Findings}
 
-This investigation of the SlumX botnet reveals significant advancements in IoT malware sophistication:
-
-\textbf{Multi-architecture support:} SlumX implements comprehensive support for twelve different architectures (MIPS, ARM, x86, embedded systems), dramatically expanding the attack surface.
-
-\textbf{Advanced evasion mechanisms:} The implementation includes process masquerading, anti-analysis features, and IoT-specific hiding techniques.
-
-\textbf{Targeted exploitation:} Systematic vulnerability targeting with vendor-specific exploits and protocol-based attacks demonstrates evolution from opportunistic to targeted attacks.
-
-
+In this study of the SlumX botnet, we observed a considerable level of sophistication with respect to IoT malware. As described in this report, SlumX has: (1) expanded its attack surface greatly by providing multi-architecture support, which includes support for 12 different processor architectures (MIPS, ARM, x86, and embedded); (2) incorporated advanced evasion techniques, which include process masquerading, anti-analysis functionality, and IoT-specific concealment methods; (3) shifted to a more targeted form of exploitation by using vendor-specific exploits and targeting of certain protocols; and (4) evolved from an opportunistic to a targeted form of attack.
 
 \section{Limitations}
 
-This research has several limitations: static analysis cannot capture all runtime behaviors, the analysis represents a temporal snapshot of SlumX capabilities, and testing was not performed on actual IoT devices. Results may not generalize to other botnet families.
+There are several limitations associated with this research. First, conducting static analysis which does not represent the actual running of the program is impossible. Second, a static analysis of SlumX only shows the capabilities of SlumX within a limited time frame and without consideration for other times. Third, this research was conducted without testing on actual IoT devices. Lastly, these findings cannot be applied to other botnet families.
 
 
 
@@ -1193,8 +1185,7 @@ Future research should focus on dynamic analysis frameworks for multi-architectu
 
 \section{Conclusions}
 
-This analysis of the SlumX botnet reveals significant advancement in IoT malware sophistication, particularly in multi-architecture targeting and evasion capabilities. The findings demonstrate the evolution from opportunistic to targeted IoT attacks and highlight the urgent need for enhanced detection and mitigation strategies in the expanding IoT ecosystem.
-
+The analysis of the SlumX botnet indicates a marked improvement in the level of sophistication associated with IoT malware, most notably in its ability to target multiple architectures and evade detection systems. This evolution from opportunistic attacks to targeted attacks demonstrates the importance of developing improved detection and mitigation methods for the expanding IoT ecosystem.
 % ========== BIBLIOGRAPHY ==========
 \bibliographystyle{IEEEtran}
 \begin{thebibliography}{99}

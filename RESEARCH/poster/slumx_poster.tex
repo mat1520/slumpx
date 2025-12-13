@@ -13,6 +13,15 @@
 \usepackage{colortbl}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=TextWhite,
+    filecolor=TextWhite,      
+    urlcolor=TextWhite,
+    pdftitle={SlumX Poster},
+    pdfpagemode=FullScreen,
+}
 \usetikzlibrary{arrows.meta, positioning, shapes.geometric, fit, calc, shadows, backgrounds}
 
 \definecolor{DarkBackground}{HTML}{0B1120}
@@ -397,9 +406,9 @@
     \vspace{0.3cm}
     \centering
     \large
-    \textcolor{AccentCyan}{\textbf{Contact:}} \textcolor{TextWhite}{armelopa@uide.edu.ec} 
+    \textcolor{AccentCyan}{\textbf{Contact:}} \href{mailto:armelopa@uide.edu.ec}{\textcolor{TextWhite}{armelopa@uide.edu.ec}} 
     \hspace{2cm}
-    \textcolor{AccentPurple}{\textbf{Repository:}} \textcolor{TextWhite}{github.com/mat1520/slumpx}
+    \textcolor{AccentPurple}{\textbf{Repository:}} \href{https://github.com/mat1520/slumpx}{\textcolor{TextWhite}{github.com/mat1520/slumpx}}
     \hspace{2cm}
     \textcolor{AccentOrange}{\textbf{Date:}} \textcolor{TextWhite}{December 2025}
     \vspace{0.3cm}
