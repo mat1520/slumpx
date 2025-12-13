@@ -114,15 +114,15 @@
     \block{\textcolor{AccentOrange}{1.} Abstract}{
         \normalsize
         \begin{itemize}\setlength\itemsep{0.4em}
-            \item Technical analysis of \textbf{SlumX botnet} (Hitori variant) via static code analysis [1]
-            \item Sophisticated \textbf{C2 mechanism} with diverse DDoS methods (UDP, TCP, HTTP)
-            \item \textbf{Multi-architecture support}: MIPS, ARM, x86, and 9 more platforms [2]
-            \item Advanced \textbf{evasion techniques} unique to IoT devices
+            \item Static code analysis of \textbf{SlumX botnet} (Hitori variant) demonstrates a fully functional C2 mechanism [1]
+            \item Multiple methods of executing \textbf{DDoS attacks} (UDP, TCP and HTTP)
+            \item Supports various device architectures: \textbf{MIPS, ARM, x86}, plus nine additional [2]
+            \item Advanced \textbf{evasion techniques} specific to IoT devices
         \end{itemize}
         
         \vspace{0.5em}
         \colorbox{BlockBackground}{\parbox{0.96\linewidth}{\normalsize\color{AccentCyan}
-        \textbf{Contribution:} Documentation of modern IoT botnet behaviors and mitigation strategies [5].
+        \textbf{Contribution:} Detailed description of latest IoT botnet generations, behaviours and mitigation strategies [5].
         }}
     }
 
@@ -131,16 +131,16 @@
         \textbf{\large\color{AccentBlue}General Objective}
         \vspace{0.2em}
         
-        Conduct an in-depth technical study of the Hitori (SlumX) botnet variant to better understand the threat posed by modern IoT botnets [1].
+        To explore the risk presented by IoT botnets, a detailed technical analysis of the Hitori (SlumX) botnet variant is required [1].
 
         \vspace{0.5em}
         \textbf{\large\color{AccentBlue}Specific Objectives}
         \vspace{-0.2em}
         \begin{itemize}\setlength\itemsep{0.3em}
-            \item Investigate the underlying code architecture to determine major functions and operation.
-            \item Identify and assess DDoS attack techniques and payload delivery methods [3].
+            \item Evaluate the source code to understand how the botnet operates and its main functions.
+            \item Assess DDoS attack techniques and payload delivery methods [3].
             \item Evaluate multi-architecture and cross-platform support mechanisms.
-            \item Recommend mitigation methods for discovered vulnerabilities [4].
+            \item Recommend mitigation methods for identified vulnerabilities [4].
         \end{itemize}
     }
 
@@ -210,7 +210,7 @@
         \vspace{0.8em}
         \begin{minipage}{0.95\linewidth}
             \normalsize
-            The architecture follows a centralized C2 model [1]. The \texttt{server.c} component manages the botnet via TCP port 1994, while \texttt{bot.c} resides on infected devices. The \texttt{cc.py} build system is crucial for cross-compiling payloads for various architectures.
+            A centralized command-and-control model is employed. The server part uses TCP port 1994 to control compromised systems; the \texttt{bot.c} component is distributed among infected devices. A Python-based build system (\texttt{cc.py}) enables cross-compilation for each processor type.
         \end{minipage}
     }
 
@@ -248,7 +248,7 @@
         \vspace{0.8em}
         \begin{minipage}{0.95\linewidth}
             \normalsize
-            The infection cycle begins with network scanning (\texttt{scankill.c}) to identify vulnerable devices. Upon successful exploitation (e.g., via Telnet brute-force or specific CVEs), the payload is downloaded and executed, establishing a persistent connection to the C2 server [2].
+            The network scanning phase (\texttt{scankill.c}) identifies machines that can potentially be infected. After gaining access (e.g., through Telnet brute force or exploiting CVE vulnerabilities), the payload file is downloaded and executed to establish a continual connection back to the C2 server [2].
         \end{minipage}
     }
 
@@ -272,8 +272,8 @@
         \vspace{0.5em}
         \begin{minipage}{0.95\linewidth}
             \normalsize
-            \textbf{High Risk:} Hardcoded IP addresses allow defenders to sinkhole the entire botnet.
-            \textbf{Medium Risk:} Lack of encryption enables traffic inspection and signature generation.
+            \textbf{High Risk:} Hard-coded IP addresses allow defenders to quickly track the entire botnet down (sinkhole).
+            \textbf{Medium Risk:} Unencrypted traffic can be easily inspected and signatures developed.
         \end{minipage}
         \vspace{2.5cm}
     }
@@ -309,12 +309,13 @@
         \vspace{0.5em}
         \begin{minipage}{0.95\linewidth}
             \small
-            Unlike early IoT botnets, SlumX supports 12 distinct architectures, significantly increasing the potential infection pool [3][5].
+            In contrast to earlier IoT botnets, SlumX has 12 separate device types (architectures) which increases the number of possible infected devices [3][5].
         \end{minipage}
     }
 
     \column{0.33}
 
+    \vspace{-8cm}
     \block{\textcolor{AccentOrange}{9.} Attack Vector Complexity}{
         \centering
         \begin{tikzpicture}[scale=1.1, transform shape]
@@ -346,17 +347,17 @@
         \vspace{1em}
         \begin{minipage}{0.95\linewidth}
             \normalsize
-            The botnet supports multiple DDoS vectors. Analysis shows that HTTP floods are the most complex to implement (95 LOC), requiring valid header construction to bypass simple filters. In contrast, UDP and TCP floods rely on raw socket manipulation for high-volume traffic generation [3].
+            SlumX allows for multiple DDoS attack vectors. Analysis shows that HTTP Floods have the highest complexity (95 LOC) because they need valid HTTP headers to avoid simple filtering, while UDP and TCP floods manipulate raw sockets to generate massive traffic [3].
         \end{minipage}
     }
 
     \block{\textcolor{AccentOrange}{10.} Key Findings \& Conclusions}{
         \normalsize
         \begin{itemize}\setlength\itemsep{0.6em}
-            \item \textbf{\color{AccentCyan}Multi-architecture:} 12 architectures (MIPS, ARM, x86, embedded) dramatically expanding attack surface.
-            \item \textbf{\color{AccentPurple}Advanced evasion:} Process masquerading, anti-analysis features, IoT-specific hiding techniques.
-            \item \textbf{\color{AccentOrange}Targeted exploitation:} Vendor-specific exploits showing evolution to targeted attacks.
-            \item \textbf{\color{AccentRed}Future Trends:} Mirai-driven botnets are moving toward more sophisticated infrastructures with increased persistence [4].
+            \item \textbf{\color{AccentCyan}Multiple Architectures:} Support for twelve processor types (MIPS, ARM, x86, etc.) provides broad attack capabilities.
+            \item \textbf{\color{AccentPurple}Advanced Evasion:} Anti-debugging and process name spoofing techniques specific to IoT environments.
+            \item \textbf{\color{AccentOrange}Targeted Exploitation:} Manufacturer-specific exploits suggest targeted attacks rather than spray-and-pray campaigns.
+            \item \textbf{\color{AccentRed}The Future:} Increasing sophistication through Mirai-Driven Botnets [4].
         \end{itemize}
 
         \vspace{1em}

@@ -254,15 +254,14 @@ While extensive research has been conducted on IoT Botnets; there still exists a
 
 \subsection{General Objective}
 
-The cybersecurity community will conduct an in-depth technical study of the Hitori(SlumX) botnet variant that includes an examination of its components, tactics employed, and operational characteristics to better understand the threat posed by modern-day IoT botnets.
+To explore the risk presented by IoT based Botnets and the Hitori (SlumX) Botnet variant, a detailed technical analysis of this specific botnet variant is required. The focus of this technical analysis should be on the source code of the botnet to evaluate how it operates and what its main functions are.
 
 \subsection{Specific Objectives}
 
 \begin{enumerate}
-    \item Investigate the underlying code architecture of the SlumX platform to determine the major functions it serves as well as its operation.
-    \item Identify and assess the types of techniques for performing attacks against a target device (DDoS and delivery method). 
-    \item Evaluate how SlumX supports more than one architecture and also has a cross-platform ability to work across different operating systems.
-    \item Recommend possible methods to mitigate the risks associated with the vulnerabilities and patterns of behavior discovered.
+    \item An assessment was conducted of the types of DDoS attack techniques and how these methods are delivered.
+    \item An evaluation of multi-architecture support and cross-platform support mechanisms was performed.
+    \item Mitigation methods for vulnerabilities identified during this analysis were recommended.
 \end{enumerate}
 
 \section{Document Organization}
@@ -394,6 +393,38 @@ Kolias et al.'s study provided one of the earliest and most comprehensive analys
 The focus of more recent research has moved from using basic methods of analysis to employing more advanced analyses including machine learning methods used for detection, behavioral analysis for attribution, and monitoring based on networks for early warning systems. \cite{wang2022iot, sivanathan2020classifying}.The Economics of IoT Botnets Research has also focused on the economic aspects (cost-benefit) of each type of IoT botnet regarding how they are created and deployed.
 
 The research has also identified several challenges that need to be addressed: the rate at which IoT botnet technology evolves faster than the development of detection tools, the lack of (representative) data to conduct analysis of IoT malware, the complexity involved in developing realistic test environments (across multiple IoT device types) and the need for cooperative cross-sector response to a distributed threat. Comprehensive analysis of current and emerging Threats has shown the rapidly evolving technological sophistication of each type of botnet.\cite{almousa2023evolution}.
+
+% Table: Summary of Previous IoT Botnet Research Studies
+\begin{table}[htbp]
+    \centering
+    \caption{Summary of Previous IoT Botnet Research Studies}
+    \label{tab:previous_studies}
+    \begin{tabular}{|p{3.5cm}|c|p{4cm}|p{5cm}|}
+        \hline
+        \textbf{Authors} & \textbf{Year} & \textbf{Research Focus} & \textbf{Key Findings} \\
+        \hline
+        Kolias et al. & 2017 & Mirai botnet analysis & Scanning algorithms, target selection, attack methods; established foundational principles of IoT botnets \\
+        \hline
+        Meidan et al. & 2018 & Network-based detection & N-BaIoT using deep autoencoders for detecting IoT botnet attacks \\
+        \hline
+        Marzano et al. & 2018 & Botnet evolution & Evolution patterns of Bashlite and Mirai IoT botnets \\
+        \hline
+        Silva et al. & 2013 & Botnet survey & Comprehensive survey of botnet architectures and C\&C systems \\
+        \hline
+        Wang et al. & 2022 & Active defense & Game-theory-based intrusion detection for cyber-physical systems \\
+        \hline
+        Sivanathan et al. & 2020 & Device classification & Classifying IoT devices using network traffic characteristics \\
+        \hline
+        Roopak et al. & 2019 & Deep learning detection & Deep learning models for cybersecurity in IoT networks \\
+        \hline
+        Almousa et al. & 2023 & Mirai variants & Survey of Mirai botnet evolution and variant classification \\
+        \hline
+        Vishwakarma \& Chhabra & 2023 & Targeted DDoS & Survey of Mirai variants and targeted DDoS attacks on IoT \\
+        \hline
+        Alghazzawi et al. & 2024 & Hybrid detection & Efficient hybrid deep learning model for IoT botnet detection \\
+        \hline
+    \end{tabular}
+\end{table}
 
 \section{Mirai Variant Analysis and Classification}
 
@@ -668,11 +699,11 @@ The core architecture consists of four primary components: the bot client (\text
     \node [attack, right=-0.2cm of http] (hold) {HOLD\\Attack};
 
     % --- CAJA PUNTEADA (Multi-Architecture Support) ---
-    % Usamos la librería 'fit' para englobar al bot y los ataques
-    \node [draw, dashed, thick, black, inner sep=10pt, fit=(bot) (tcp) (hold) (http)] (container) {};
+    % REMOVIDA: Las lineas punteadas tapaban el cuadro verde
+    % Solo dejamos la etiqueta sin el recuadro
     
-    % Etiqueta rotada al lado de la caja
-    \node [rotate=90, anchor=south, font=\small] at (container.west) {Multi-Architecture Support};
+    % Etiqueta rotada al lado (sin caja)
+    \node [rotate=90, anchor=south, font=\small] at (-3.5, -2.5) {Multi-Architecture Support};
 
     % --- CONEXIONES ---
 
@@ -692,7 +723,6 @@ The core architecture consists of four primary components: the bot client (\text
     \draw [connection] (build) -- node[right, font=\footnotesize] {Targets} (scanner);
 
     % Scanner hacia C&C (Payload) - Curva larga
-    % out=160 (sale hacia arriba-izq), in=340 (entra desde abajo-der)
     \draw [connection] (scanner) to[out=150,in=330] node[midway, below left=-3pt, font=\footnotesize] {Payload} (cnc);
 
 \end{tikzpicture}
@@ -1097,50 +1127,7 @@ The quantitative analysis of implementations of different attack vectors has sho
         thick,
         minimum size=0.5cm
     }
-]
 
-    % --- TÍTULO ---
-    \node[font=\large\bfseries] (title) {Security Risk Assessment};
-
-    % Espacio entre el título y la matriz
-    \node[below=0.2cm of title] (startmatrix) {};
-
-    % --- MATRIZ 2x2 (centrada) ---
-    % Fila 1
-    \node[box, fill=red!50, below=0cm of startmatrix] (topleft)
-        {Hardcoded\\C\&C Address\\(Single Point\\Failure)};
-
-    \node[box, fill=yellow!50, right=0cm of topleft] (topright)
-        {Plain Text\\Communication\\(Traffic\\Analysis)};
-
-    % Fila 2
-    \node[box, fill=yellow!50, below=0cm of topleft] (bottomleft)
-        {Fixed Port\\Usage\\(Network\\Filtering)};
-
-    \node[box, fill=green!50, right=0cm of bottomleft] (bottomright)
-        {Predictable\\Binary Names\\(Signature\\Detection)};
-
-    % --- LEYENDA CENTRADA ---
-    \node[below=1.2cm of bottomleft] (legendstart) {};
-
-    % Item 1
-    \node[legendbox, fill=red!50, below=0.3cm of bottomleft] (l1) {};
-    \node[right=0.2cm of l1] (t1) {High Risk};
-
-    % Item 2
-    \node[legendbox, fill=yellow!50, right=1cm of t1] (l2) {};
-    \node[right=0.2cm of l2] (t2) {Medium Risk};
-
-    % Item 3
-    \node[legendbox, fill=green!50, right=1cm of t2] (l3) {};
-    \node[right=0.2cm of l3] {Low Risk};
-
-\end{tikzpicture}
-
-\caption{Vulnerability Risk Assessment Matrix}
-\begin{center}\small Risk matrix classifying the vulnerabilities found in the SlumX implementation.\end{center}
-\label{fig:vulnerability_matrix}
-\end{figure}
 
 
 \subsection{Code Quality Vulnerabilities in the Malware Implementation}
