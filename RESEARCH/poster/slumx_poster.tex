@@ -48,8 +48,8 @@
 }
 
 \definetitlestyle{SimpleTitle}{
-    width=\paperwidth, roundedcorners=0, linewidth=0pt, innersep=3cm,
-    titletotopverticalspace=0mm, titletoblockverticalspace=30mm
+    width=\paperwidth, roundedcorners=0, linewidth=0pt, innersep=2cm,
+    titletotopverticalspace=5mm, titletoblockverticalspace=8mm
 }{
     \draw[draw=none, fill=titlebgcolor] (\titleposleft,\titleposbottom) rectangle (\titleposright,\titlepostop);
 }
@@ -74,23 +74,13 @@
 
 \makeatletter
 \settitle{
-    \parbox{0.9\paperwidth}{
-        \centering
-        \begin{minipage}{0.12\linewidth}
-            \centering
-            \includegraphics[width=\linewidth, height=8cm, keepaspectratio]{university_logo.png}
-        \end{minipage}%
-        \begin{minipage}{0.76\linewidth}
-            \centering
-            \color{titlefgcolor}
-            {\bfseries \LARGE \@title}\\[1em]
-            {\Large \@author}\\[0.5em]
-            {\large \@institute}
-        \end{minipage}%
-        \begin{minipage}{0.12\linewidth}
-            \centering
-            ~
-        \end{minipage}
+    \parbox{0.98\paperwidth}{
+        \raggedright
+        \includegraphics[height=5cm]{university_logo.png}\\[0.8em]
+        \color{titlefgcolor}
+        {\bfseries \LARGE \@title}\\[0.7em]
+        {\LARGE \@author}\\[0.5em]
+        {\Large \@institute}
     }
 }
 \makeatother
@@ -403,15 +393,15 @@
 
 % Footer profesional
 \block{}{
-    \vspace{1cm}
+    \vspace{0.3cm}
     \centering
-    \Large
+    \large
     \textcolor{AccentCyan}{\textbf{Contact:}} \textcolor{TextWhite}{armelopa@uide.edu.ec} 
-    \hspace{3cm}
+    \hspace{2cm}
     \textcolor{AccentPurple}{\textbf{Repository:}} \textcolor{TextWhite}{github.com/mat1520/slumpx}
-    \hspace{3cm}
+    \hspace{2cm}
     \textcolor{AccentOrange}{\textbf{Date:}} \textcolor{TextWhite}{December 2025}
-    \vspace{1cm}
+    \vspace{0.3cm}
 }
 
 \end{document}
