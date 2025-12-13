@@ -356,16 +356,16 @@
         \vspace{1em}
         \begin{minipage}{0.95\linewidth}
             \normalsize
-            SlumX allows for multiple DDoS attack vectors. Analysis shows that HTTP Floods have the highest complexity (95 LOC) because they need valid HTTP headers to avoid simple filtering, while UDP and TCP floods manipulate raw sockets to generate massive traffic [3].
+            The botnet implements a versatile range of DDoS capabilities. Our code analysis reveals that HTTP flooding represents the most sophisticated vector (95 LOC), requiring the construction of valid headers to bypass standard filters. In contrast, UDP and TCP floods rely on direct raw socket manipulation to generate high-volume volumetric traffic [3].
         \end{minipage}
     }
 
     \block{\textcolor{AccentOrange}{10.} Key Findings \& Conclusions}{
         \normalsize
         \begin{itemize}\setlength\itemsep{0.6em}
-            \item \textbf{\color{AccentCyan}Multiple Architectures:} Support for twelve processor types (MIPS, ARM, x86, etc.) provides broad attack capabilities.
-            \item \textbf{\color{AccentPurple}Advanced Evasion:} Anti-debugging and process name spoofing techniques specific to IoT environments.
-            \item \textbf{\color{AccentOrange}Targeted Exploitation:} Manufacturer-specific exploits suggest targeted attacks rather than spray-and-pray campaigns.
+            \item \textbf{\color{AccentCyan}Multiple Architectures:} Extensive cross-platform support covering twelve distinct processor architectures, including MIPS, ARM, and x86, maximizing the potential infection pool.
+            \item \textbf{\color{AccentPurple}Advanced Evasion:} Implementation of IoT-centric defensive mechanisms, including anti-debugging routines and dynamic process masquerading.
+            \item \textbf{\color{AccentOrange}Targeted Exploitation:} A strategic shift towards precision attacks using manufacturer-specific vulnerabilities, moving away from indiscriminate mass-scanning approaches.
             \item \textbf{\color{AccentRed}The Future:} Increasing sophistication through Mirai-Driven Botnets [4].
         \end{itemize}
 
