@@ -48,8 +48,8 @@
 }
 
 \definetitlestyle{SimpleTitle}{
-    width=\paperwidth, roundedcorners=0, linewidth=0pt, innersep=2cm,
-    titletotopverticalspace=0mm, titletoblockverticalspace=20mm
+    width=\paperwidth, roundedcorners=0, linewidth=0pt, innersep=3cm,
+    titletotopverticalspace=0mm, titletoblockverticalspace=30mm
 }{
     \draw[draw=none, fill=titlebgcolor] (\titleposleft,\titleposbottom) rectangle (\titleposright,\titlepostop);
 }
@@ -78,7 +78,7 @@
         \centering
         \begin{minipage}{0.12\linewidth}
             \centering
-            \includegraphics[width=\linewidth, height=6cm, keepaspectratio]{university_logo.png}
+            \includegraphics[width=\linewidth, height=8cm, keepaspectratio]{university_logo.png}
         \end{minipage}%
         \begin{minipage}{0.76\linewidth}
             \centering
@@ -97,7 +97,7 @@
 
 \title{Analysis of IoT Botnet Structure and Behavior: A Study Based on the Hitori (SlumX) Variant}
 \author{Ariel Matias Melo Pazmiño}
-\institute{Universidad Internacional del Ecuador - Facultad de Ciencias Técnicas- Escuela Ciencias de la Computacion}
+\institute{Universidad Internacional del Ecuador - Facultad de Ciencias Técnicas - Escuela de Ciencias de la Computación}
 
 \begin{document}
 
@@ -121,7 +121,7 @@
 
     \column{0.33}
 
-    \block{Abstract}{
+    \block{\textcolor{AccentOrange}{1.} Abstract}{
         \normalsize
         \begin{itemize}\setlength\itemsep{0.4em}
             \item Technical analysis of \textbf{SlumX botnet} (Hitori variant) via static code analysis [1]
@@ -136,7 +136,7 @@
         }}
     }
 
-    \block{Research Objectives}{
+    \block{\textcolor{AccentOrange}{2.} Research Objectives}{
         \normalsize
         \textbf{\large\color{AccentBlue}General Objective}
         \vspace{0.2em}
@@ -154,7 +154,7 @@
         \end{itemize}
     }
 
-    \block{Methodology}{
+    \block{\textcolor{AccentOrange}{3.} Methodology}{
         \centering
         \renewcommand{\arraystretch}{1.5}
         \begin{tabular}{>{\color{AccentCyan}\bfseries}l >{\color{TextWhite}}l}
@@ -174,7 +174,7 @@
 
 
 
-    \block{Threat Model}{
+    \block{\textcolor{AccentOrange}{4.} Threat Model}{
         \centering
         \large
         \begin{tabular}{c l}
@@ -189,7 +189,7 @@
         }}
     }
 
-    \block{System Architecture}{
+    \block{\textcolor{AccentOrange}{5.} System Architecture}{
         \centering
         \begin{tikzpicture}[
             scale=1.1, transform shape,
@@ -226,7 +226,7 @@
 
     \column{0.33}
 
-    \block{Infection Process Flow}{
+    \block{\textcolor{AccentOrange}{6.} Infection Process Flow}{
         \centering
         \begin{tikzpicture}[
             scale=1.1, transform shape,
@@ -264,7 +264,7 @@
 
 
 
-    \block{Security Risk Assessment}{
+    \block{\textcolor{AccentOrange}{7.} Security Risk Assessment}{
         \centering
         \normalsize
         \begin{tikzpicture}[
@@ -288,7 +288,7 @@
         \vspace{2.5cm}
     }
 
-    \block{Multi-Architecture Support}{
+    \block{\textcolor{AccentOrange}{8.} Multi-Architecture Support}{
         \centering
         \normalsize
         \renewcommand{\arraystretch}{1.4}
@@ -325,7 +325,7 @@
 
     \column{0.33}
 
-    \block{Attack Vector Complexity}{
+    \block{\textcolor{AccentOrange}{9.} Attack Vector Complexity}{
         \centering
         \begin{tikzpicture}[scale=1.1, transform shape]
         \begin{axis}[
@@ -360,7 +360,7 @@
         \end{minipage}
     }
 
-    \block{Key Findings \& Conclusions}{
+    \block{\textcolor{AccentOrange}{10.} Key Findings \& Conclusions}{
         \normalsize
         \begin{itemize}\setlength\itemsep{0.6em}
             \item \textbf{\color{AccentCyan}Multi-architecture:} 12 architectures (MIPS, ARM, x86, embedded) dramatically expanding attack surface.
@@ -400,5 +400,18 @@
     }
 
 \end{columns}
+
+% Footer profesional
+\block{}{
+    \vspace{1cm}
+    \centering
+    \Large
+    \textcolor{AccentCyan}{\textbf{Contact:}} \textcolor{TextWhite}{armelopa@uide.edu.ec} 
+    \hspace{3cm}
+    \textcolor{AccentPurple}{\textbf{Repository:}} \textcolor{TextWhite}{github.com/mat1520/slumpx}
+    \hspace{3cm}
+    \textcolor{AccentOrange}{\textbf{Date:}} \textcolor{TextWhite}{December 2025}
+    \vspace{1cm}
+}
 
 \end{document}
